@@ -1,2 +1,2 @@
-# sustainable-commute-finder-g7
+# sustainable-commute-finder
 Spring Boot web app
