@@ -3,8 +3,7 @@ package com.sustainable_commute_finder.sustainable_commute_finder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Result {
-
-   @JsonProperty("formatted_address")
+    @JsonProperty("formatted_address")
     private String address;
     @JsonProperty("geometry")
     private Geometry geometry;

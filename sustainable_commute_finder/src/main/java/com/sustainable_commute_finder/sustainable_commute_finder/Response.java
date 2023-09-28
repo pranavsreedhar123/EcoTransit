@@ -14,4 +14,6 @@ public class Response {
     public void setResult(Result[] result) {
         this.result = result;
     }
+
+
 }
