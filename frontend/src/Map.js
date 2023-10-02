@@ -1,10 +1,7 @@
-import { GoogleMap, Marker, useLoadScript, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import './styles/Map.css';
 import { useEffect, useState } from 'react';
 
-
-
-const google = window.google;
 
 function Map(props) {
   const { isLoaded, loadError } = useJsApiLoader({
@@ -15,11 +12,10 @@ function Map(props) {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      }, () => {console.log(location)});
+      });
     });
   }, []);
 
@@ -30,7 +26,9 @@ function Map(props) {
         mapContainerClassName="map-container"
         zoom={8}
         center={location}
-      ></GoogleMap>)
+      >
+        <Marker position={location} />
+      </GoogleMap>)
       :(<h1>Loading...</h1>)}
     </div>
   );
