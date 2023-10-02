@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import './styles/Map.css';
 import { useEffect, useState } from 'react';
 
@@ -27,7 +27,7 @@ function Map(props) {
         zoom={8}
         center={location}
       >
-        <Marker position={location} />
+        <MarkerF position={location} />
       </GoogleMap>)
       :(<h1>Loading...</h1>)}
     </div>
