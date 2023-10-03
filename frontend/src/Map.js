@@ -34,7 +34,7 @@ function Map(props) {
   useEffect(() => {
     getLocation();
   }, []);
-  var location = [
+  let location = [
     {
       lat: parseFloat(data.originlat),
       lng: parseFloat(data.originlng),
