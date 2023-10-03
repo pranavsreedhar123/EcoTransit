@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class MapController {
     @Value("${GOOGLE_MAPS_API_KEY}")
-    private String API_KEY;
+    private String API_KEY = "";
     @RequestMapping(method = RequestMethod.GET, value = "/getLocation/{dest_address}/{origin_address}")
     public String getMap(@PathVariable String dest_address, @PathVariable String origin_address) {
         UriComponents uriDest = UriComponentsBuilder.newInstance()
@@ -79,4 +79,6 @@ public class MapController {
         System.out.println(resp);
         return resp;
     }
+
 }
+
