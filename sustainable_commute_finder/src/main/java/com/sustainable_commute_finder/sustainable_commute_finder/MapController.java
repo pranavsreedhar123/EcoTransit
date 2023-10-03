@@ -11,7 +11,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @CrossOrigin(origins="http://localhost:3000")
 
 public class MapController {
-    private String API_KEY = "";
+    @Value("${GOOGLE_MAPS_API_KEY}")
+    private String API_KEY;
     @RequestMapping(method = RequestMethod.GET, value = "/getLocation/{dest_address}/{origin_address}")
     public String getMap(@PathVariable String dest_address, @PathVariable String origin_address) {
         UriComponents uriDest = UriComponentsBuilder.newInstance()

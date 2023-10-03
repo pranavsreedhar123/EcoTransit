@@ -1,5 +1,6 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static com.sustainable_commute_finder.sustainable_commute_finder.MapController.API_KEY;
-
 @RestController
 @RequestMapping("/environmental-impact")
 public class EnvironmentalImpactController {
 
+    @Value("${GOOGLE_MAPS_API_KEY}")
+    private String API_KEY;
     @GetMapping("/environmental-impact/{distance}/{mode}")
     public EnvironmentalImpactResponse calculateEnvironmentalImpact(
             @PathVariable double distance,
