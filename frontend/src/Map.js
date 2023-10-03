@@ -18,9 +18,7 @@ function Map(props) {
   ]);
 
   async function getLocation() {
-    await fetch(
-      "http://localhost:8080/getLocation/New York/North Avenue Apartments"
-    )
+    await fetch("http://localhost:8080/getLocation/Nashville/New York")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
