@@ -1,5 +1,6 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 class MapController {
-    private static final Object API_KEY = "AIzaSyC4LzT70To0xGNed07uFGE3Uz4gSpXck0s";
+
+    @Value("${GOOGLE_MAPS_API_KEY}")
+    private String API_KEY;
+
     @RequestMapping(method = RequestMethod.GET, value = "/getLocation/{dest_address}/{origin_address}")
     public String getMap(@PathVariable String dest_address, @PathVariable String origin_address) {
         UriComponents uriDest = UriComponentsBuilder.newInstance()
