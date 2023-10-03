@@ -1,6 +1,7 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,7 +16,8 @@ public class CarbonFootprintController {
    // @Autowired
     RestTemplate restTemplate;
 
-    private String API_KEY = "VWLlKNFcDvtoJltmfoqXA";
+    @Value("${CARBON_INTERFACE_API_KEY}")
+    private String API_KEY;
 
     @RequestMapping(value = "/carbonFootprint",
             method = RequestMethod.POST,

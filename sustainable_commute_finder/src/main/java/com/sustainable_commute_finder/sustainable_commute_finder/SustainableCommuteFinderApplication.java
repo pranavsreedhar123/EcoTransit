@@ -8,12 +8,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 @SpringBootApplication
 public class SustainableCommuteFinderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SustainableCommuteFinderApplication.class, args);
 	}
-}
 
+}

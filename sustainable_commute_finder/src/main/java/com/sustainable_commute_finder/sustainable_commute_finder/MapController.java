@@ -1,17 +1,18 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-class MapController {
-    private static final Object API_KEY = "AIzaSyC4LzT70To0xGNed07uFGE3Uz4gSpXck0s";
+@CrossOrigin(origins="http://localhost:3000")
+
+public class MapController {
+    @Value("${GOOGLE_MAPS_API_KEY}")
+    private String API_KEY = "";
     @RequestMapping(method = RequestMethod.GET, value = "/getLocation/{dest_address}/{origin_address}")
     public String getMap(@PathVariable String dest_address, @PathVariable String origin_address) {
         UriComponents uriDest = UriComponentsBuilder.newInstance()
@@ -29,14 +30,12 @@ class MapController {
                 .queryParam("address", origin_address)
                 .build();
 
-        ResponseEntity<Response> responseDest = new RestTemplate().getForEntity(uriDest.toUriString(), Response.class);
-        Response bodyDest = responseDest.getBody();
+        ResponseEntity<ResponseLocation> responseDest = new RestTemplate().getForEntity(uriDest.toUriString(), ResponseLocation.class);
+        ResponseLocation bodyDest = responseDest.getBody();
         String locationDest = bodyDest.getResult()[0].getGeometry().getLocation().getLat() + ", " + bodyDest.getResult()[0].getGeometry().getLocation().getLng();
-//		System.out.println(location);
-        ResponseEntity<Response> responseOrigin = new RestTemplate().getForEntity(uriOrigin.toUriString(), Response.class);
-        Response bodyOrigin = responseOrigin.getBody();
+        ResponseEntity<ResponseLocation> responseOrigin = new RestTemplate().getForEntity(uriOrigin.toUriString(), ResponseLocation.class);
+        ResponseLocation bodyOrigin = responseOrigin.getBody();
         String locationOrigin = bodyOrigin.getResult()[0].getGeometry().getLocation().getLat() + ", " + bodyOrigin.getResult()[0].getGeometry().getLocation().getLng();
-//		System.out.println(location);
 
         UriComponents uriD = UriComponentsBuilder.newInstance()
                 .scheme("https")
@@ -76,10 +75,8 @@ class MapController {
                 .build();
         ResponseEntity<ResponseRoute> responseT = new RestTemplate().getForEntity(uriT.toUriString(), ResponseRoute.class);
         ResponseRoute bodyT = responseT.getBody();
-        System.out.println(bodyD.getDest_address()[0]);
-        String resp = "Origin Address: " +  bodyD.getOrigin_address()[0] + "\nOrigin Address (coordinates): " + locationOrigin + "\n\nDestination Address: " + bodyD.getDest_address()[0] +  "\nDestination Address (coordinates): " + locationDest + "\n\nDuration: " + bodyD.getRow()[0].getElements()[0].getDuration().getTime() + "\nDistance: " + bodyD.getRow()[0].getElements()[0].getDistance().getDistance() + "\nMode: Driving" + "\n\nDuration: " + bodyW.getRow()[0].getElements()[0].getDuration().getTime() + "\nDistance: " + bodyW.getRow()[0].getElements()[0].getDistance().getDistance() + "\nMode: Walking" +  "\n\nDuration: " + bodyT.getRow()[0].getElements()[0].getDuration().getTime() + "\nDistance: " + bodyT.getRow()[0].getElements()[0].getDistance().getDistance() + "\nMode: Transit (If Available, else Driving)";
-
+        String resp = "{\"originlat\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLat() + "\",\"originlng\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLng() + "\"," + "\"destinationlat\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLat() + "\",\"destinationlng\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLng() + "\",\"distanceD\":\"" + bodyD.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationD\":\"" + bodyD.getRow()[0].getElements()[0].getDuration().getTime() + "\",\"distanceW\":\"" + bodyW.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationW\":\"" + bodyW.getRow()[0].getElements()[0].getDuration().getTime() + "\",\"distanceT\":\"" + bodyT.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationT\":\"" + bodyT.getRow()[0].getElements()[0].getDuration().getTime() + "\"}";
+        System.out.println(resp);
         return resp;
     }
 }
-
