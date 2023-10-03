@@ -13,27 +13,10 @@ import static com.sustainable_commute_finder.sustainable_commute_finder.MapContr
 @RequestMapping("/environmental-impact")
 public class EnvironmentalImpactController {
 
-    @GetMapping("/getLocation/{dest_address}/{origin_address}/{distance}/{mode}")
+    @GetMapping("/environmental-impact/{distance}/{mode}")
     public EnvironmentalImpactResponse calculateEnvironmentalImpact(
-            @PathVariable String dest_address,
-            @PathVariable String origin_address,
             @PathVariable double distance,
             @PathVariable String mode) {
-
-        UriComponents uriDest = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("maps.googleapis.com")
-                .path("/maps/api/geocode/json")
-                .queryParam("key", API_KEY)
-                .queryParam("address", dest_address)
-                .build();
-        UriComponents uriOrigin = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("maps.googleapis.com")
-                .path("/maps/api/geocode/json")
-                .queryParam("key", API_KEY)
-                .queryParam("address", origin_address)
-                .build();
 
         // Calculate environmental impact based on distance and commute mode
         double impact = calculateImpact(distance, mode);
