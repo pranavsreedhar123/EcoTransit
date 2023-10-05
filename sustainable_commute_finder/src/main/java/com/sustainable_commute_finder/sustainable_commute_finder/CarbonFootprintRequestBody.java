@@ -1,10 +1,19 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CarbonFootprintRequestBody {
+        @JsonProperty("type")
         private String type;
-        private String distance_unit;
-        private double distance_value;
-        private String vehicle_model_id;
+
+        @JsonProperty("distance_unit")
+        private String distanceUnit;
+
+        @JsonProperty("distance_value")
+        private double distanceValue;
+
+        @JsonProperty("vehicle_model_id")
+        private String vehicleModelId;
 
         public String getType() {
                 return type;
@@ -14,27 +23,28 @@ public class CarbonFootprintRequestBody {
                 this.type = type;
         }
 
-        public String getDistance_unit() {
-                return distance_unit;
+
+        public String getDistanceUnit() {
+                return distanceUnit;
         }
 
-        public void setDistance_unit(String distance_unit) {
-                this.distance_unit = distance_unit;
+        public void setDistanceUnit(String distanceUnit) {
+                this.distanceUnit = distanceUnit;
         }
 
-        public double getDistance_value() {
-                return distance_value;
+        public double getDistanceValue() {
+                return distanceValue;
         }
 
-        public void setDistance_value(double distance_value) {
-                this.distance_value = distance_value;
+        public void setDistanceValue(double distanceValue) {
+                this.distanceValue = distanceValue;
         }
 
-        public String getVehicle_model_id() {
-                return vehicle_model_id;
+        public String getVehicleModelId() {
+                return vehicleModelId;
         }
 
-        public void setVehicle_model_id(String vehicle_model_id) {
-                this.vehicle_model_id = vehicle_model_id;
+        public void setVehicleModelId(String vehicleModelId) {
+                this.vehicleModelId = vehicleModelId;
         }
 }

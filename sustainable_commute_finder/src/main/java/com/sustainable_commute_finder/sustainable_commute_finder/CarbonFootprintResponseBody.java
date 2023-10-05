@@ -1,10 +1,16 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CarbonFootprintResponseBody {
+    @JsonProperty("type")
     private String type;
+
+    @JsonProperty("id")
     private String id;
-    private String attributes;
-    private String data;
+
+    @JsonProperty("attributes")
+    private VehicleAttributes attributes;
 
     public String getType() {
         return type;
@@ -22,19 +28,12 @@ public class CarbonFootprintResponseBody {
         this.id = id;
     }
 
-    public String getAttributes() {
+
+    public VehicleAttributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(String attributes) {
+    public void setAttributes(VehicleAttributes attributes) {
         this.attributes = attributes;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 }
