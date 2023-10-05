@@ -9,7 +9,6 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/environmental-impact")
 public class EnvironmentalImpactController {
 
     @Value("${GOOGLE_MAPS_API_KEY}")
