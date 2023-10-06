@@ -1,10 +1,18 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
-public class EnvironmentalImpactResponse {
-
+public class EnvironmentalImpactRequest {
     private double commuteDistance;
     private String commuteMode;
-    private double positiveImpact;
+
+    // Constructors
+    public EnvironmentalImpactRequest() {
+        // Default constructor
+    }
+
+    public EnvironmentalImpactRequest(double commuteDistance, String commuteMode) {
+        this.commuteDistance = commuteDistance;
+        this.commuteMode = commuteMode;
+    }
 
     // Getters and Setters
     public double getCommuteDistance() {
@@ -21,13 +29,5 @@ public class EnvironmentalImpactResponse {
 
     public void setCommuteMode(String commuteMode) {
         this.commuteMode = commuteMode;
-    }
-
-    public double getPositiveImpact() {
-        return positiveImpact;
-    }
-
-    public void setPositiveImpact(double positiveImpact) {
-        this.positiveImpact = positiveImpact;
     }
 }
