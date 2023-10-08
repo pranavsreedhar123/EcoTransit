@@ -1,5 +1,7 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
+import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintRequestBody;
+import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintResponseData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 
 @RestController
 public class CarbonFootprintController {
@@ -33,12 +34,6 @@ public class CarbonFootprintController {
                                                 HttpMethod.POST,
                                                 request,
                                                 CarbonFootprintResponseData.class).getBody();
-//        double carbon = response.getAttributes().getCarbonKg();
-//        System.out.println(carbon);
-//        String response = restTemplate.exchange(url,
-//                                                HttpMethod.POST,
-//                                                request,
-//                                                String.class).getBody();
         System.out.println(response);
         return response;
     }

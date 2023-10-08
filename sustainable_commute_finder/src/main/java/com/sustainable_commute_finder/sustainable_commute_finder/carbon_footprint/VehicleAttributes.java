@@ -1,4 +1,4 @@
-package com.sustainable_commute_finder.sustainable_commute_finder;
+package com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint;
 
 //"distance_value": 100.0,
 //        "vehicle_make": "Toyota",
