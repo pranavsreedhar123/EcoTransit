@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+
 @CrossOrigin(origins="http://localhost:3000")
 
 public class MapController {
@@ -75,7 +76,16 @@ public class MapController {
                 .build();
         ResponseEntity<ResponseRoute> responseT = new RestTemplate().getForEntity(uriT.toUriString(), ResponseRoute.class);
         ResponseRoute bodyT = responseT.getBody();
-        String resp = "{\"originlat\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLat() + "\",\"originlng\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLng() + "\"," + "\"destinationlat\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLat() + "\",\"destinationlng\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLng() + "\",\"distanceD\":\"" + bodyD.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationD\":\"" + bodyD.getRow()[0].getElements()[0].getDuration().getTime() + "\",\"distanceW\":\"" + bodyW.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationW\":\"" + bodyW.getRow()[0].getElements()[0].getDuration().getTime() + "\",\"distanceT\":\"" + bodyT.getRow()[0].getElements()[0].getDistance().getDistance() + "\",\"durationT\":\"" + bodyT.getRow()[0].getElements()[0].getDuration().getTime() + "\"}";
+        String resp = "{\"originlat\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLat()
+                + "\",\"originlng\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLng()
+                + "\"," + "\"destinationlat\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLat()
+                + "\",\"destinationlng\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLng()
+                + "\",\"distanceD\":\"" + bodyD.getRow()[0].getElements()[0].getDistance().getDistance()
+                + "\",\"durationD\":\"" + bodyD.getRow()[0].getElements()[0].getDuration().getTime()
+                + "\",\"distanceW\":\"" + bodyW.getRow()[0].getElements()[0].getDistance().getDistance()
+                + "\",\"durationW\":\"" + bodyW.getRow()[0].getElements()[0].getDuration().getTime() 
+                + "\",\"distanceT\":\"" + bodyT.getRow()[0].getElements()[0].getDistance().getDistance()
+                + "\",\"durationT\":\"" + bodyT.getRow()[0].getElements()[0].getDuration().getTime() + "\"}";
         System.out.println(resp);
         return resp;
     }
