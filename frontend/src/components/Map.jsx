@@ -4,10 +4,10 @@ import {
   useJsApiLoader,
   PolylineF,
 } from "@react-google-maps/api";
-import "./styles/Map.css";
 import { useEffect, useState } from "react";
 import { showErrorToast } from "utils/error";
 import { useAppDispatch } from "app/hooks";
+import { Box, VStack } from "@chakra-ui/react";
 
 const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
 const isValidPoint = (point) => point.lat !== null && point.lng !== null;
@@ -66,8 +66,8 @@ const Map = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <div>
+    <>
+      <VStack spacing={1} alignItems={"flex-start"}>
         <h2>
           <b>Duration (Drive)</b>: {data.durationD}
         </h2>
@@ -88,11 +88,13 @@ const Map = () => {
           <b>Distance (Transit</b> (If Available, else Driving)<b>)</b>:{" "}
           {data.distanceT}
         </h2>
-      </div>
-      <div className="map">
+      </VStack>
+
+      {/* height = 1 is a hack to get the map to show properly */}
+      <Box flexGrow={1} height={1}>
         {isLoaded ? (
           <GoogleMap
-            mapContainerClassName="map-container"
+            mapContainerStyle={{ height: "100%", width: "100%" }}
             zoom={zoom}
             center={currentlocation}
           >
@@ -115,8 +117,8 @@ const Map = () => {
         ) : (
           <h1>Loading...</h1>
         )}
-      </div>
-    </div>
+      </Box>
+    </>
   );
 };
 
