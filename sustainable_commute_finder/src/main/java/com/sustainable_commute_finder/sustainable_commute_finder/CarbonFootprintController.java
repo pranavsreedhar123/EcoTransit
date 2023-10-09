@@ -43,8 +43,11 @@ public class CarbonFootprintController {
                                                 HttpMethod.POST,
                                                 transitRequest,
                                                 CarbonFootprintResponseData.class).getBody();
-        
 
-        return "ok";
+        String response = vehicleResponse.getData().getType() + " Carbon footprint: "
+                + vehicleResponse.getData().getAttributes().getCarbonKg() + "\n" +
+                transitResponse.getData().getAttributes().getTransportMethod() + " Carbon footprint: "
+                + transitResponse.getData().getAttributes().getCarbonKg();
+        return response;
     }
 }

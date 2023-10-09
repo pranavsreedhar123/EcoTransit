@@ -144,4 +144,28 @@ public class Attributes {
     public void setCarbonMt(double carbonMt) {
         this.carbonMt = carbonMt;
     }
+
+    public String getWeightValue() {
+        return weightValue;
+    }
+
+    public void setWeightValue(String weightValue) {
+        this.weightValue = weightValue;
+    }
+
+    public String getWeightUnit() {
+        return weightUnit;
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
+    }
+
+    public String getTransportMethod() {
+        return transportMethod;
+    }
+
+    public void setTransportMethod(String transportMethod) {
+        this.transportMethod = transportMethod;
+    }
 }
