@@ -2,7 +2,7 @@ package com.sustainable_commute_finder.sustainable_commute_finder.carbon_footpri
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CarbonFootprintRequestBody {
+public class CarbonFootprintVehicleRequestBody {
         @JsonProperty("type")
         private String type;
 

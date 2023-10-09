@@ -1,6 +1,7 @@
 package com.sustainable_commute_finder.sustainable_commute_finder;
 
-import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintRequestBody;
+import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintTransitRequestBody;
+import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintVehicleRequestBody;
 import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintResponseData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -23,18 +24,27 @@ public class CarbonFootprintController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public CarbonFootprintResponseData getCarbonFootprint(@RequestBody CarbonFootprintRequestBody requestBody) {
+    public String getCarbonFootprint(@RequestBody CarbonFootprintVehicleRequestBody vehicleRequestBody,
+                                     @RequestBody CarbonFootprintTransitRequestBody transitRequestBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + API_KEY);
 
-        HttpEntity <CarbonFootprintRequestBody> request = new HttpEntity(requestBody, headers);
+        HttpEntity <CarbonFootprintVehicleRequestBody> vehicleRequest = new HttpEntity(vehicleRequestBody, headers);
+        HttpEntity <CarbonFootprintTransitRequestBody> transitRequest = new HttpEntity(transitRequestBody, headers);
+
         String url = "https://www.carboninterface.com/api/v1/estimates";
         restTemplate = new RestTemplate();
-        CarbonFootprintResponseData response = restTemplate.exchange(url,
+        CarbonFootprintResponseData vehicleResponse = restTemplate.exchange(url,
                                                 HttpMethod.POST,
-                                                request,
+                                                vehicleRequest,
                                                 CarbonFootprintResponseData.class).getBody();
-        System.out.println(response);
-        return response;
+
+        CarbonFootprintResponseData transitResponse = restTemplate.exchange(url,
+                                                HttpMethod.POST,
+                                                transitRequest,
+                                                CarbonFootprintResponseData.class).getBody();
+        
+
+        return "ok";
     }
 }
