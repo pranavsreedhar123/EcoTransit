@@ -6,53 +6,65 @@ import {
 } from "@react-google-maps/api";
 import "./styles/Map.css";
 import { useEffect, useState } from "react";
+import { showErrorToast } from "utils/error";
+import { useAppDispatch } from "app/hooks";
 
-function Map(props) {
-  const { isLoaded, loadError } = useJsApiLoader({
+const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
+const isValidPoint = (point) => point.lat !== null && point.lng !== null;
+const Map = () => {
+  const dispatch = useAppDispatch();
+
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  const [data, setData] = useState([
-    { lat: 0, lng: 0 },
-    { lat: 90, lng: 90 },
-  ]);
+  const [data, setData] = useState({
+    origin: { lat: null, lng: null },
+    destination: { lat: null, lng: null },
+    durationD: "",
+    distanceD: "",
+    distanceW: "",
+    durationW: "",
+    distanceT: "",
+    durationT: "",
+  });
 
-  async function getLocation() {
-    await fetch("http://localhost:8080/getLocation/Nashville/New York")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  }
+  const [currentlocation, setCurrentLocation] = useState({
+    lat: 37.0902,
+    lng: -95.7129,
+  });
+  const [zoom, setZoom] = useState(4);
 
   useEffect(() => {
+    const getLocation = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/getLocation/Nashville/New York",
+        );
+        if (!response.ok)
+          throw new Error(`${response.status} ${response.statusText}`);
+        const data = await response.json();
+        setData({
+          origin: getPoint(data.originlat, data.originlng),
+          destination: getPoint(data.destinationlat, data.destinationlng),
+          ...data,
+        });
+      } catch (error) {
+        showErrorToast(dispatch, null, error.message);
+      }
+    };
+
     getLocation();
-  }, []);
-  let location = [
-    {
-      lat: parseFloat(data.originlat),
-      lng: parseFloat(data.originlng),
-    },
-    {
-      lat: parseFloat(data.destinationlat),
-      lng: parseFloat(data.destinationlng),
-    },
-  ];
 
-  const [currentlocation, setCurrentLocation] = useState({ lat: 0, lng: 0 });
-
-  useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setCurrentLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
+      setZoom(6);
     });
-  }, []);
+  }, [dispatch]);
+
   return (
     <div>
       <div>
@@ -81,20 +93,24 @@ function Map(props) {
         {isLoaded ? (
           <GoogleMap
             mapContainerClassName="map-container"
-            zoom={5}
+            zoom={zoom}
             center={currentlocation}
           >
-            <MarkerF position={location[0]} />
-            <MarkerF position={location[1]} />
-            <PolylineF
-              path={location}
-              geodesic={true}
-              options={{
-                strokeColor: "#ff2527",
-                strokeOpacity: 0.75,
-                strokeWeight: 2,
-              }}
-            />
+            {isValidPoint(data.origin) && <MarkerF position={data.origin} />}
+            {isValidPoint(data.destination) && (
+              <MarkerF position={data.destination} />
+            )}
+            {isValidPoint(data.origin) && isValidPoint(data.destination) && (
+              <PolylineF
+                path={[data.origin, data.destination]}
+                geodesic={true}
+                options={{
+                  strokeColor: "#ff2527",
+                  strokeOpacity: 0.75,
+                  strokeWeight: 2,
+                }}
+              />
+            )}
           </GoogleMap>
         ) : (
           <h1>Loading...</h1>
@@ -102,6 +118,6 @@ function Map(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Map;
