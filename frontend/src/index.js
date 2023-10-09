@@ -13,7 +13,7 @@ import App from "routes/App";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
-  { path: "/map", element: <App /> },
+  { path: "/route", element: <App /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -33,7 +33,7 @@ root.render(
         </ChakraProvider>
       </PersistGate>
     </ReduxProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -39,7 +39,7 @@ const Map = () => {
     const getLocation = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/getLocation/Nashville/New York",
+          "http://localhost:8080/getLocation/Nashville/New York"
         );
         if (!response.ok)
           throw new Error(`${response.status} ${response.statusText}`);
