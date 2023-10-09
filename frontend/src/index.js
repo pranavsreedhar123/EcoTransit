@@ -1,18 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "app/store";
 import theme from "app/theme";
+import Start from "routes/Start";
+import App from "routes/App";
 
 const router = createBrowserRouter([
-  // TODO: Change this to a <Start> component
-  { path: "/", element: <App /> },
+  { path: "/", element: <Start /> },
+  { path: "/map", element: <App /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,7 +22,14 @@ root.render(
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
         <ChakraProvider theme={theme}>
-          <RouterProvider router={router} />
+          <Container
+            maxWidth={"7xl"}
+            minHeight={"100vh"}
+            display={"flex"}
+            flexDirection={"column"}
+          >
+            <RouterProvider router={router} />
+          </Container>
         </ChakraProvider>
       </PersistGate>
     </ReduxProvider>

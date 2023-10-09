@@ -31,8 +31,13 @@ export const errorHandler = (error) => {
   return errorMessage;
 };
 
-export const showErrorToast = (dispatch, res) => {
-  const errorMessage = res.payload ? res.payload : res.error.message;
+export const showErrorToast = (dispatch, res, message = null) => {
+  const errorMessage =
+    message === null
+      ? res.payload
+        ? res.payload
+        : res.error.message
+      : message;
   dispatch(
     showToast({
       title: "Error",
