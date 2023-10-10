@@ -59,7 +59,7 @@ const Map = (props) => {
   return (
     <>
       <VStack spacing={1} alignItems={"flex-start"}>
-      <h2>
+        <h2>
           <b>Mode of Transportation</b>: {data.transportationMethod}
         </h2>
         <h2>
