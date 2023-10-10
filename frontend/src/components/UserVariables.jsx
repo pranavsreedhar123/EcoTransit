@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Center, VStack, Box, Button, FormControl, Select } from "@chakra-ui/react";
+import {
+  Center,
+  VStack,
+  Box,
+  Button,
+  FormControl,
+  Select,
+} from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -66,16 +73,14 @@ const UserVariables = (props) => {
               <b>Mode of Transportation: </b>
             </h1>
             <FormControl>
-            <Select
-              onChange={handleTransportationChange}
-            >
-              <option value="Walking">Walking</option>
-              <option value="Biking">Biking</option>
-              <option value="Driving">Driving</option>
-              <option value="Public Transit">Public Transit</option>
-              <option value="Flying">Flying</option>
-            </Select>
-          </FormControl>
+              <Select onChange={handleTransportationChange}>
+                <option value="Walking">Walking</option>
+                <option value="Biking">Biking</option>
+                <option value="Driving">Driving</option>
+                <option value="Public Transit">Public Transit</option>
+                <option value="Flying">Flying</option>
+              </Select>
+            </FormControl>
           </Box>
           <Box paddingTop={50}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
