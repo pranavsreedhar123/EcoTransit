@@ -17,6 +17,9 @@ const Map = (props) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
+  const transportationMethod = location.state?.transportationMethod || "";
+
+
   const [data, setData] = useState({
     origin: { lat: null, lng: null },
     destination: { lat: null, lng: null },
@@ -36,11 +39,14 @@ const Map = (props) => {
   const [zoom, setZoom] = useState(4);
   useEffect(() => {
     const getLocation = async () => {
-      const { originlat, originlng, destinationlat, destinationlng, transportationMethod } = location.state;
+      const data = location.state;
+      console.log(data);
+      console.log("Hi");
       setData({
-        origin: getPoint(originlat, originlng),
-        destination: getPoint(destinationlat, destinationlng),
-        transportationMethod,
+        origin: getPoint(data.originlat, data.originlng),
+        destination: getPoint(data.destinationlat, data.destinationlng),
+        transportationMethod: data.transportationMethod,
+        ...data,
       });
     };
 
@@ -53,7 +59,8 @@ const Map = (props) => {
       });
       setZoom(6);
     });
-  }, [location]);
+    console.log('Selected Transportation Method:', transportationMethod);
+  }, [location, transportationMethod]);
 
   return (
     <>
