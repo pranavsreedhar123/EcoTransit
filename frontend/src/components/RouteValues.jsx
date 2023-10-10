@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Center, VStack, Box, Button } from "@chakra-ui/react";
+import { Center, VStack, Box, Button, HStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -18,7 +18,8 @@ const RouteValues = (props) => {
     durationT: "",
     distanceC: "",
     durationC: "",
-    transportationMode: "",
+    valueS: "",
+    valueE: "",
   });
 
   useEffect(() => {
@@ -45,7 +46,33 @@ const RouteValues = (props) => {
     <>
       <Navbar />
       <Center>
-        <VStack spacing={1} alignItems={"flex-start"} fontSize={25}>
+        <VStack spacing={1} alignItems={"flex-start"} fontSize={20}>
+          <HStack>
+            <Box
+            bg="green.100"
+            width={222}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={2}
+          >
+            <h1>
+              <b>Start: </b> {data.valueS}
+            </h1>
+          </Box>
+          <Box
+            bg="green.100"
+            width={222}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={2}
+          >
+            <h1>
+              <b>End: </b> {data.valueE}
+            </h1>
+          </Box>
+          </HStack>
           <Box
             bg="green.100"
             minW={450}
