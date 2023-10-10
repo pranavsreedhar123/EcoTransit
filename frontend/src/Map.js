@@ -16,9 +16,11 @@ function Map(props) {
     { lat: 0, lng: 0 },
     { lat: 90, lng: 90 },
   ]);
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
 
-  async function getLocation() {
-    await fetch("http://localhost:8080/getLocation/Nashville/New York")
+  async function getLocation(start, end) {
+    await fetch(`http://localhost:8080/getLocation/${start}/${end}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -29,9 +31,14 @@ function Map(props) {
       });
   }
 
-  useEffect(() => {
-    getLocation();
-  }, []);
+  const handleClick = () => {
+    if(start && end) {
+      getLocation(start, end);
+    } else {
+      alert("Please enter both start and end locations!");
+    }
+  }
+
   let location = [
     {
       lat: parseFloat(data.originlat),
@@ -55,6 +62,21 @@ function Map(props) {
   }, []);
   return (
     <div>
+      <div>
+        <input
+          type="text"
+          placeholder="Start Location"
+          value={start}
+          onChange={(e) => setStart(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="End Location"
+          value={end}
+          onChange={(e) => setEnd(e.target.value)}
+        />
+        <button onClick={handleClick}>Get Location</button>
+      </div>
       <div>
         <h2>
           <b>Duration (Drive)</b>: {data.durationD}
