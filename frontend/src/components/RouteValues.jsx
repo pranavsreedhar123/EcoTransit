@@ -16,6 +16,9 @@ const RouteValues = (props) => {
     durationW: "",
     distanceT: "",
     durationT: "",
+    distanceC: "",
+    durationC: "",
+    transportationMode: "",
   });
 
   useEffect(() => {
@@ -42,12 +45,7 @@ const RouteValues = (props) => {
     <>
       <Navbar />
       <Center>
-        <VStack
-          spacing={1}
-          paddingTop={100}
-          alignItems={"flex-start"}
-          fontSize={25}
-        >
+        <VStack spacing={1} alignItems={"flex-start"} fontSize={25}>
           <Box
             bg="green.100"
             minW={450}
@@ -85,14 +83,29 @@ const RouteValues = (props) => {
             padding={2}
           >
             <h2>
+              <b>Bicycling: </b>
+            </h2>
+            <li>Distance: {data.distanceC}</li>
+            <li>Duration: {data.durationC}</li>
+          </Box>
+          <Box
+            bg="green.100"
+            minW={450}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={2}
+          >
+            <h2>
               <b>Transit</b> (If Available, else uses Default)<b>: </b>
             </h2>
             <li>Distance: {data.distanceT}</li>
             <li>Duration: {data.durationT}</li>
           </Box>
+
           <Box paddingTop={50}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
-              Calculate Carbon Estimate
+              Next
             </Button>
           </Box>
         </VStack>

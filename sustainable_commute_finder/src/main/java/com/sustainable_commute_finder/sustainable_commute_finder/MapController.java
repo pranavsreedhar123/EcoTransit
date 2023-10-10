@@ -76,6 +76,20 @@ public class MapController {
                 .build();
         ResponseEntity<ResponseRoute> responseT = new RestTemplate().getForEntity(uriT.toUriString(), ResponseRoute.class);
         ResponseRoute bodyT = responseT.getBody();
+
+        UriComponents uriC = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("maps.googleapis.com")
+                .path("/maps/api/distancematrix/json")
+                .queryParam("key", API_KEY)
+                .queryParam("origins", origin_address)
+                .queryParam("destinations", dest_address)
+                .queryParam("units", "imperial")
+                .queryParam("mode", "bicycling")
+                .build();
+        ResponseEntity<ResponseRoute> responseC = new RestTemplate().getForEntity(uriC.toUriString(), ResponseRoute.class);
+        ResponseRoute bodyC = responseC.getBody();
+
         String resp = "{\"originlat\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLat()
                 + "\",\"originlng\":\"" + bodyOrigin.getResult()[0].getGeometry().getLocation().getLng()
                 + "\"," + "\"destinationlat\":\"" + bodyDest.getResult()[0].getGeometry().getLocation().getLat()
@@ -85,7 +99,9 @@ public class MapController {
                 + "\",\"distanceW\":\"" + bodyW.getRow()[0].getElements()[0].getDistance().getDistance()
                 + "\",\"durationW\":\"" + bodyW.getRow()[0].getElements()[0].getDuration().getTime() 
                 + "\",\"distanceT\":\"" + bodyT.getRow()[0].getElements()[0].getDistance().getDistance()
-                + "\",\"durationT\":\"" + bodyT.getRow()[0].getElements()[0].getDuration().getTime() + "\"}";
+                + "\",\"durationT\":\"" + bodyT.getRow()[0].getElements()[0].getDuration().getTime()
+                + "\",\"distanceC\":\"" + bodyC.getRow()[0].getElements()[0].getDistance().getDistance()
+                + "\",\"durationC\":\"" + bodyC.getRow()[0].getElements()[0].getDuration().getTime() + "\"}";
         System.out.println(resp);
         return resp;
     }

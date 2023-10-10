@@ -27,6 +27,8 @@ const Map = (props) => {
     durationW: "",
     distanceT: "",
     durationT: "",
+    distanceC: "",
+    durationC: "",
   });
 
   const navigate = useNavigate();
