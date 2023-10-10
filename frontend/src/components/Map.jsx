@@ -17,7 +17,7 @@ const Map = (props) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  const transportationMethod = location.state?.transportationMethod || "";
+  // const transportationMethod = location.state?.transportationMethod || "";
 
 
   const [data, setData] = useState({
@@ -44,7 +44,6 @@ const Map = (props) => {
       setData({
         origin: getPoint(data.originlat, data.originlng),
         destination: getPoint(data.destinationlat, data.destinationlng),
-        transportationMethod: data.transportationMethod,
         ...data,
       });
     };
@@ -58,7 +57,7 @@ const Map = (props) => {
       });
       setZoom(6);
     });
-  }, [location, transportationMethod]);
+  }, [location]);
 
   return (
     <>
