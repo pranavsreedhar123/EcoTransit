@@ -1,0 +1,31 @@
+name: Maven Package and Google Cloud Deploy
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+
+    - name: Build with Maven
+      run: ./sustainable-commute-finder/mvnw clean package
+
+    - name: Deploy to Google Cloud App Engine
+      run: gcloud app deploy sustainable_commute_finder/target/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
