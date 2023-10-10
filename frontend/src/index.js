@@ -11,11 +11,13 @@ import theme from "app/theme";
 import Start from "routes/Start";
 import App from "routes/App";
 import Map from "components/Map";
+import RouteValues from "components/RouteValues";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
   { path: "/route", element: <App /> },
   { path: "/map", element: <Map /> },
+  { path: "/route-value", element: <RouteValues /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

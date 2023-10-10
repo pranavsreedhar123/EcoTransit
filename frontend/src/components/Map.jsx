@@ -5,8 +5,9 @@ import {
   PolylineF,
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import { Box, VStack } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { Box, Button } from "@chakra-ui/react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
 const isValidPoint = (point) => point.lat !== null && point.lng !== null;
@@ -28,11 +29,12 @@ const Map = (props) => {
     durationT: "",
   });
 
-  const [currentlocation, setCurrentLocation] = useState({
-    lat: 37.0902,
-    lng: -95.7129,
-  });
-  const [zoom, setZoom] = useState(4);
+  const navigate = useNavigate();
+  const routeChange = () => {
+      let path = `/route-value`;
+      navigate(path, { state: data });
+    } ;
+  const [zoom, setZoom] = useState(5);
   useEffect(() => {
     const getLocation = async () => {
       const data = location.state;
@@ -42,52 +44,34 @@ const Map = (props) => {
         destination: getPoint(data.destinationlat, data.destinationlng),
         ...data,
       });
+      if (parseFloat(data.distanceD.replace(/[^\d.-]/g, '')) < 10) {
+        setZoom(15);
+      } else if (parseFloat(data.distanceD.replace(/[^\d.-]/g, '')) < 100){
+        setZoom(10);
+      } else if (parseFloat(data.distanceD.replace(/[^\d.-]/g, '')) < 500){
+        setZoom(8);
+      } else {
+        
+        setZoom(5);
+      }
     };
 
     getLocation();
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      setCurrentLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-      setZoom(6);
-    });
   }, [location]);
-
+  const center = getPoint(((data.origin.lat + data.destination.lat)/2), ((data.origin.lng + data.destination.lng)/2));
   return (
     <>
-      <VStack spacing={1} alignItems={"flex-start"}>
-        <h2>
-          <b>Duration (Drive)</b>: {data.durationD}
-        </h2>
-        <h2>
-          <b>Distance (Drive)</b>: {data.distanceD}
-        </h2>
-        <h2>
-          <b>Duration (Walk)</b>: {data.durationW}
-        </h2>
-        <h2>
-          <b>Distance (Walk)</b>: {data.distanceW}
-        </h2>
-        <h2>
-          <b>Duration (Transit</b> (If Available, else Driving)<b>)</b>:{" "}
-          {data.durationT}
-        </h2>
-        <h2>
-          <b>Distance (Transit</b> (If Available, else Driving)<b>)</b>:{" "}
-          {data.distanceT}
-        </h2>
-      </VStack>
-
+    <Navbar/>
       {/* height = 1 is a hack to get the map to show properly */}
       <Box flexGrow={1} height={1}>
-        {isLoaded ? (
+        {isLoaded && isValidPoint(data.origin) && isValidPoint(data.destination) ? (
           <GoogleMap
             mapContainerStyle={{ height: "100%", width: "100%" }}
             zoom={zoom}
-            center={currentlocation}
+            center={center}
           >
+            
             {isValidPoint(data.origin) && <MarkerF position={data.origin} />}
             {isValidPoint(data.destination) && (
               <MarkerF position={data.destination} />
@@ -108,6 +92,9 @@ const Map = (props) => {
           <h1>Loading...</h1>
         )}
       </Box>
+      <Button onClick={routeChange} colorScheme="blue">
+          Next
+        </Button>
     </>
   );
 };

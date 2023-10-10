@@ -1,4 +1,4 @@
-import { Button, HStack, Heading, Spacer, Text } from "@chakra-ui/react";
+import { Button, HStack, Heading, Spacer, Text, Highlight } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "app/hooks";
@@ -17,7 +17,14 @@ const Navbar = () => {
 
   return (
     <HStack pt={10} pb={5}>
-      <Heading size={"2xl"}>EcoTransit</Heading>
+      <Heading size={"2xl"}>
+        <Highlight
+          query="EcoTransit"
+          styles={{ px: "2", py: "1", rounded: "full", bg: "green.100" }}
+        >
+        EcoTransit
+        </Highlight>
+        </Heading>
       <Spacer />
       <Text>Hello, {user.name}!</Text>
       <Button colorScheme={"red"} onClick={onLogOut}>
