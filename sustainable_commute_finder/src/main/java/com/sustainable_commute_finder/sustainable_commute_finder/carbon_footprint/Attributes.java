@@ -14,9 +14,12 @@ package com.sustainable_commute_finder.sustainable_commute_finder.carbon_footpri
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class VehicleAttributes {
+public class Attributes {
     @JsonProperty("distance_value")
     private double distanceValue;
+
+    @JsonProperty("distance_unit")
+    private String distanceUnit;
 
     @JsonProperty("vehicle_make")
     private String vehicleMake;
@@ -30,8 +33,14 @@ public class VehicleAttributes {
     @JsonProperty("vehicle_model_id")
     private String vehicleModelId;
 
-    @JsonProperty("distance_unit")
-    private String distanceUnit;
+    @JsonProperty("weight_value")
+    private String weightValue;
+
+    @JsonProperty("weight_unit")
+    private String weightUnit;
+
+    @JsonProperty("transport_method")
+    private String transportMethod;
 
     @JsonProperty("estimated_at")
     private String estimatedAt;
@@ -134,5 +143,29 @@ public class VehicleAttributes {
 
     public void setCarbonMt(double carbonMt) {
         this.carbonMt = carbonMt;
+    }
+
+    public String getWeightValue() {
+        return weightValue;
+    }
+
+    public void setWeightValue(String weightValue) {
+        this.weightValue = weightValue;
+    }
+
+    public String getWeightUnit() {
+        return weightUnit;
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
+    }
+
+    public String getTransportMethod() {
+        return transportMethod;
+    }
+
+    public void setTransportMethod(String transportMethod) {
+        this.transportMethod = transportMethod;
     }
 }

@@ -2,7 +2,7 @@ package com.sustainable_commute_finder.sustainable_commute_finder.carbon_footpri
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CarbonFootprintResponseBody {
+public class CarbonFootprintVehicleResponseBody {
     @JsonProperty("type")
     private String type;
 
@@ -10,7 +10,7 @@ public class CarbonFootprintResponseBody {
     private String id;
 
     @JsonProperty("attributes")
-    private VehicleAttributes attributes;
+    private Attributes attributes;
 
     public String getType() {
         return type;
@@ -29,11 +29,11 @@ public class CarbonFootprintResponseBody {
     }
 
 
-    public VehicleAttributes getAttributes() {
+    public Attributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(VehicleAttributes attributes) {
+    public void setAttributes(Attributes attributes) {
         this.attributes = attributes;
     }
 }
