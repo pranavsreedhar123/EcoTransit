@@ -1,5 +1,5 @@
 import { createStandaloneToast } from "@chakra-ui/react";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const { toast } = createStandaloneToast();
 const initialState = {
@@ -14,7 +14,7 @@ export const toastSlice = createSlice({
   name: "toast",
   initialState: initialState,
   reducers: {
-    showToast: (state, action: PayloadAction) => {
+    showToast: (state, action) => {
       state = { ...state, ...action.payload };
       toast(state);
     },
