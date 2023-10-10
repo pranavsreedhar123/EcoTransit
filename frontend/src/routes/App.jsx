@@ -4,6 +4,9 @@ import { useAppSelector } from "app/hooks";
 import { useNavigate } from "react-router-dom";
 import Route from "components/Route";
 import Navbar from "components/Navbar";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// const Stack = createNativeStackNavigator();
 
 const App = () => {
   const navigate = useNavigate();
