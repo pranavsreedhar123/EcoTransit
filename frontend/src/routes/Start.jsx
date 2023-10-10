@@ -30,7 +30,7 @@ const Start = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/map", { replace: true });
+      navigate("/route", { replace: true });
     }
   });
 
