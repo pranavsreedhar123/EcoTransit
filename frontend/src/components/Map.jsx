@@ -20,6 +20,7 @@ const Map = (props) => {
   const [data, setData] = useState({
     origin: { lat: null, lng: null },
     destination: { lat: null, lng: null },
+    transportationMethod: "",
     durationD: "",
     distanceD: "",
     distanceW: "",
@@ -35,12 +36,11 @@ const Map = (props) => {
   const [zoom, setZoom] = useState(4);
   useEffect(() => {
     const getLocation = async () => {
-      const data = location.state;
-      console.log(data);
+      const { originlat, originlng, destinationlat, destinationlng, transportationMethod } = location.state;
       setData({
-        origin: getPoint(data.originlat, data.originlng),
-        destination: getPoint(data.destinationlat, data.destinationlng),
-        ...data,
+        origin: getPoint(originlat, originlng),
+        destination: getPoint(destinationlat, destinationlng),
+        transportationMethod,
       });
     };
 
@@ -58,6 +58,9 @@ const Map = (props) => {
   return (
     <>
       <VStack spacing={1} alignItems={"flex-start"}>
+      <h2>
+          <b>Mode of Transportation</b>: {data.transportationMethod}
+        </h2>
         <h2>
           <b>Duration (Drive)</b>: {data.durationD}
         </h2>

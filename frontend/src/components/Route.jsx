@@ -5,16 +5,16 @@ import {
   Text,
   Button,
   useToast,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
+  FormControl,
+  FormLabel,
+  Select,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const Route = () => {
   let [valueS, setValueS] = useState("");
   let [valueE, setValueE] = useState("");
+  let [transportationMethod, setTransportationMethod] = useState("");
   let handleInputChangeS = (e) => {
     let inputValue = e.target.value;
     setValueS(inputValue);
@@ -22,6 +22,10 @@ const Route = () => {
   let handleInputChangeE = (e) => {
     let inputValue = e.target.value;
     setValueE(inputValue);
+  };
+  let handleTransportationChange = (e) => {
+    let inputValue = e.target.value;
+    setTransportationMethod(inputValue);
   };
   const toast = useToast();
   const navigate = useNavigate();
@@ -39,7 +43,7 @@ const Route = () => {
       const data = await response.json();
       //   console.log(data);
       let path = `/map`;
-      navigate(path, { state: data });
+      navigate(path, { state: { ...data, transportationMethod } });
     } catch (error) {
       toast({
         title: "Error Finding Route!",
@@ -56,7 +60,7 @@ const Route = () => {
     <>
       <h1 size="xl">
         Welcome to EcoTransit! Begin by entering your start and end locations
-        within the United States of America
+        within the United States of America, as well as a method of transportation.
       </h1>
       <VStack spacing={1} alignItems={"flex-start"} padding={15}>
         <Text mb="8px">Start: </Text>
@@ -73,6 +77,16 @@ const Route = () => {
           placeholder="Enter Destination"
           size="sm"
         />
+        <FormControl>
+          <FormLabel>Transportation Method:</FormLabel>
+          <Select placeholder="Select Transportation Method" onChange={handleTransportationChange}>
+            <option value="Walking">Walking</option>
+            <option value="Biking">Biking</option>
+            <option value="Driving">Driving</option>
+            <option value="Public Transit">Public Transit</option>
+            <option value="Flying">Flying</option>
+          </Select>
+        </FormControl>
         <Button onClick={routeChange} colorScheme="blue">
           Submit
         </Button>
