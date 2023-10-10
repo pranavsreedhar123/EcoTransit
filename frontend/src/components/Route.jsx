@@ -60,7 +60,8 @@ const Route = () => {
     <>
       <h1 size="xl">
         Welcome to EcoTransit! Begin by entering your start and end locations
-        within the United States of America, as well as a method of transportation.
+        within the United States of America, as well as a method of
+        transportation.
       </h1>
       <VStack spacing={1} alignItems={"flex-start"} padding={15}>
         <Text mb="8px">Start: </Text>
@@ -79,7 +80,10 @@ const Route = () => {
         />
         <FormControl>
           <FormLabel>Transportation Method:</FormLabel>
-          <Select placeholder="Select Transportation Method" onChange={handleTransportationChange}>
+          <Select
+            placeholder="Select Transportation Method"
+            onChange={handleTransportationChange}
+          >
             <option value="Walking">Walking</option>
             <option value="Biking">Biking</option>
             <option value="Driving">Driving</option>

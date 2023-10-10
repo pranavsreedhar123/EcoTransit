@@ -41,7 +41,6 @@ const Map = (props) => {
     const getLocation = async () => {
       const data = location.state;
       console.log(data);
-      console.log("Hi");
       setData({
         origin: getPoint(data.originlat, data.originlng),
         destination: getPoint(data.destinationlat, data.destinationlng),
@@ -59,7 +58,6 @@ const Map = (props) => {
       });
       setZoom(6);
     });
-    console.log('Selected Transportation Method:', transportationMethod);
   }, [location, transportationMethod]);
 
   return (
