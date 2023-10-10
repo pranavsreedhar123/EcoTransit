@@ -5,14 +5,13 @@ import {
   PolylineF,
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import { showErrorToast } from "utils/error";
-import { useAppDispatch } from "app/hooks";
 import { Box, VStack } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 
 const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
 const isValidPoint = (point) => point.lat !== null && point.lng !== null;
-const Map = () => {
-  const dispatch = useAppDispatch();
+const Map = (props) => {
+  const location = useLocation();
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -34,24 +33,15 @@ const Map = () => {
     lng: -95.7129,
   });
   const [zoom, setZoom] = useState(4);
-
   useEffect(() => {
     const getLocation = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/getLocation/Nashville/New York"
-        );
-        if (!response.ok)
-          throw new Error(`${response.status} ${response.statusText}`);
-        const data = await response.json();
-        setData({
-          origin: getPoint(data.originlat, data.originlng),
-          destination: getPoint(data.destinationlat, data.destinationlng),
-          ...data,
-        });
-      } catch (error) {
-        showErrorToast(dispatch, null, error.message);
-      }
+      const data = location.state;
+      console.log(data);
+      setData({
+        origin: getPoint(data.originlat, data.originlng),
+        destination: getPoint(data.destinationlat, data.destinationlng),
+        ...data,
+      });
     };
 
     getLocation();
@@ -63,7 +53,7 @@ const Map = () => {
       });
       setZoom(6);
     });
-  }, [dispatch]);
+  }, [location]);
 
   return (
     <>

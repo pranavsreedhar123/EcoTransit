@@ -10,10 +10,12 @@ import { persistor, store } from "app/store";
 import theme from "app/theme";
 import Start from "routes/Start";
 import App from "routes/App";
+import Map from "components/Map";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
   { path: "/route", element: <App /> },
+  { path: "/map", element: <Map /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
