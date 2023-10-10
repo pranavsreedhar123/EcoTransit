@@ -5,7 +5,7 @@ import {
   Text,
   Button,
   useToast,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const Route = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/getLocation/${valueS}/${valueE}`
+        `http://localhost:8080/getLocation/${valueS}/${valueE}`,
       );
 
       if (!response.ok) {
@@ -55,36 +55,51 @@ const Route = () => {
   };
   return (
     <>
-      
-      <VStack spacing={1} alignItems={"flex-start"} padding={30} fontSize={25} >
-        <h1 size="xl" >
-        Welcome to EcoTransit! Begin by entering your start and end locations
-        within the United States of America
-      </h1>
-      <Box borderRadius={10} padding={2} minWidth={450} borderWidth='2px' borderColor={"gray"}>
-        <Text mb="25px">Start: </Text>
-        <Textarea
-          value={valueS}
-          onChange={handleInputChangeS}
-          placeholder="Enter Starting Point"
-          fontSize={20}
-          size="sm"
-        />
+      <VStack spacing={1} alignItems={"flex-start"} padding={30} fontSize={25}>
+        <h1 size="xl">
+          Welcome to EcoTransit! Begin by entering your start and end locations
+          within the United States of America
+        </h1>
+        <Box
+          borderRadius={10}
+          padding={2}
+          minWidth={450}
+          borderWidth="2px"
+          borderColor={"gray"}
+        >
+          <Text mb="25px">Start: </Text>
+          <Textarea
+            value={valueS}
+            onChange={handleInputChangeS}
+            placeholder="Enter Starting Point"
+            fontSize={20}
+            size="sm"
+          />
         </Box>
-        <Box borderRadius={10} padding={2} minWidth={450} borderWidth='2px' borderColor={"gray"}>
-        <Text mb="25px">End: </Text>
-        <Textarea
-          value={valueE}
-          onChange={handleInputChangeE}
-          placeholder="Enter Destination"
-          fontSize={20}
-          size="sm"
-        />
+        <Box
+          borderRadius={10}
+          padding={2}
+          minWidth={450}
+          borderWidth="2px"
+          borderColor={"gray"}
+        >
+          <Text mb="25px">End: </Text>
+          <Textarea
+            value={valueE}
+            onChange={handleInputChangeE}
+            placeholder="Enter Destination"
+            fontSize={20}
+            size="sm"
+          />
         </Box>
-        <Button onClick={routeChange} colorScheme="blue" minW={450} isLoading={loading}>
+        <Button
+          onClick={routeChange}
+          colorScheme="blue"
+          minW={450}
+          isLoading={loading}
+        >
           Submit
         </Button>
-
       </VStack>
     </>
   );
