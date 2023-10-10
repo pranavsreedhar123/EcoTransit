@@ -47,10 +47,10 @@ const RouteValues = (props) => {
       <Navbar />
       <Center>
         <VStack spacing={1} alignItems={"flex-start"} fontSize={20}>
-          <HStack>
+          
             <Box
-            bg="green.100"
-            width={222}
+            bg="beige"
+            width={450}
             borderColor={"gray"}
             borderWidth="2px"
             borderRadius="lg"
@@ -61,8 +61,8 @@ const RouteValues = (props) => {
             </h1>
           </Box>
           <Box
-            bg="green.100"
-            width={222}
+            bg="beige"
+            width={450}
             borderColor={"gray"}
             borderWidth="2px"
             borderRadius="lg"
@@ -72,7 +72,13 @@ const RouteValues = (props) => {
               <b>End: </b> {data.valueE}
             </h1>
           </Box>
-          </HStack>
+          <Box
+            width={450}
+            padding={3}
+          >
+            
+          </Box>
+          
           <Box
             bg="green.100"
             minW={450}
@@ -130,7 +136,7 @@ const RouteValues = (props) => {
             <li>Duration: {data.durationT}</li>
           </Box>
 
-          <Box paddingTop={50}>
+          <Box paddingTop={5}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
               Next
             </Button>
