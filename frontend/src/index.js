@@ -12,12 +12,14 @@ import Start from "routes/Start";
 import App from "routes/App";
 import Map from "components/Map";
 import RouteValues from "components/RouteValues";
+import UserVariables from "components/UserVariables";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
   { path: "/route", element: <App /> },
   { path: "/map", element: <Map /> },
   { path: "/route-value", element: <RouteValues /> },
+  { path: "/user-variables", element: <UserVariables /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

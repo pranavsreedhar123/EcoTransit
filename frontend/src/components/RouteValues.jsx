@@ -37,7 +37,7 @@ const RouteValues = (props) => {
 
   const navigate = useNavigate();
   const routeChange = () => {
-    let path = `/route`;
+    let path = `/user-variables`;
     navigate(path);
   };
 
