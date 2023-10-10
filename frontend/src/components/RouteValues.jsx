@@ -97,8 +97,7 @@ const RouteValues = (props) => {
             <li>Distance: {data.distanceT}</li>
             <li>Duration: {data.durationT}</li>
           </Box>
-          
-          
+
           <Box paddingTop={50}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
               Continue to Input Variables
