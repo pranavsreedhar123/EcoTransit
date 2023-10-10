@@ -5,6 +5,7 @@ import {
   Text,
   Button,
   useToast,
+  Box,
   FormControl,
   FormLabel,
   Select,
@@ -27,9 +28,12 @@ const Route = () => {
     let inputValue = e.target.value;
     setTransportationMethod(inputValue);
   };
+
   const toast = useToast();
   const navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
   const routeChange = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:8080/getLocation/${valueS}/${valueE}`,
@@ -49,36 +53,62 @@ const Route = () => {
         title: "Error Finding Route!",
         description: "Make sure to enter valid locations in the U.S",
         status: "error",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
       });
       console.log(error);
+      setLoading(false);
     }
     // const data = { start: valueS, end: valueE };
   };
   return (
     <>
-      <h1 size="xl">
-        Welcome to EcoTransit! Begin by entering your start and end locations
-        within the United States of America, as well as a method of
+      <VStack spacing={1} alignItems={"flex-start"} padding={30} fontSize={25}>
+        <h1 size="xl">
+          Welcome to EcoTransit! Begin by entering your start and end locations
+          within the United States of America, as well as a method of
         transportation.
-      </h1>
-      <VStack spacing={1} alignItems={"flex-start"} padding={15}>
-        <Text mb="8px">Start: </Text>
-        <Textarea
-          value={valueS}
-          onChange={handleInputChangeS}
-          placeholder="Enter Starting Point"
-          size="sm"
-        />
-        <Text mb="8px">End: </Text>
-        <Textarea
-          value={valueE}
-          onChange={handleInputChangeE}
-          placeholder="Enter Destination"
-          size="sm"
-        />
-        <FormControl>
+        </h1>
+        <Box
+          borderRadius={10}
+          padding={2}
+          minWidth={450}
+          borderWidth="2px"
+          borderColor={"gray"}
+        >
+          <Text mb="25px">Start: </Text>
+          <Textarea
+            value={valueS}
+            onChange={handleInputChangeS}
+            placeholder="Enter Starting Point"
+            fontSize={20}
+            size="sm"
+          />
+        </Box>
+        <Box
+          borderRadius={10}
+          padding={2}
+          minWidth={450}
+          borderWidth="2px"
+          borderColor={"gray"}
+        >
+          <Text mb="25px">End: </Text>
+          <Textarea
+            value={valueE}
+            onChange={handleInputChangeE}
+            placeholder="Enter Destination"
+            fontSize={20}
+            size="sm"
+          />
+        </Box>
+        <Box
+          borderRadius={10}
+          padding={2}
+          minWidth={450}
+          borderWidth="2px"
+          borderColor={"gray"}
+        >
+          <FormControl>
           <FormLabel>Transportation Method:</FormLabel>
           <Select
             placeholder="Select Transportation Method"
@@ -91,7 +121,13 @@ const Route = () => {
             <option value="Flying">Flying</option>
           </Select>
         </FormControl>
-        <Button onClick={routeChange} colorScheme="blue">
+        </Box>
+        <Button
+          onClick={routeChange}
+          colorScheme="blue"
+          minW={450}
+          isLoading={loading}
+        >
           Submit
         </Button>
       </VStack>
