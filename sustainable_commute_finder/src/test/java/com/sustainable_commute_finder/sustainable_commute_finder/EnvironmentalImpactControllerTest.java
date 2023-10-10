@@ -17,10 +17,7 @@ public class EnvironmentalImpactControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    public void setUp() {
-        // Perform any setup if needed
-    }
+
 
     @Test
     public void testCalculateEnvironmentalImpact() throws Exception {
@@ -32,6 +29,6 @@ public class EnvironmentalImpactControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.commuteDistance").value(distance))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.commuteMode").value(mode))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.positiveImpact").value(1.0)); // Adjust the expected value as per your logic
+                .andExpect(MockMvcResultMatchers.jsonPath("$.positiveImpact").value(1.0)); 
     }
 }
