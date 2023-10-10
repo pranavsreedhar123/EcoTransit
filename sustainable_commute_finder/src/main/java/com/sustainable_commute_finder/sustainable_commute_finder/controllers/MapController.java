@@ -1,4 +1,4 @@
-package com.sustainable_commute_finder.sustainable_commute_finder;
+package com.sustainable_commute_finder.sustainable_commute_finder.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.sustainable_commute_finder.sustainable_commute_finder.responses.ResponseLocation;
+import com.sustainable_commute_finder.sustainable_commute_finder.responses.ResponseRoute;
 
 @RestController
 
