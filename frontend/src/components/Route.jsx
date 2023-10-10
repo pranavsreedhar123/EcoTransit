@@ -28,7 +28,7 @@ const Route = () => {
   const routeChange = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/getLocation/${valueS}/${valueE}`
+        `http://localhost:8080/getLocation/${valueS}/${valueE}`,
       );
 
       if (!response.ok) {
