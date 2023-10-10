@@ -67,7 +67,7 @@ const Route = () => {
         <h1 size="xl">
           Welcome to EcoTransit! Begin by entering your start and end locations
           within the United States of America, as well as a method of
-        transportation.
+          transportation.
         </h1>
         <Box
           borderRadius={10}
@@ -109,18 +109,18 @@ const Route = () => {
           borderColor={"gray"}
         >
           <FormControl>
-          <FormLabel>Transportation Method:</FormLabel>
-          <Select
-            placeholder="Select Transportation Method"
-            onChange={handleTransportationChange}
-          >
-            <option value="Walking">Walking</option>
-            <option value="Biking">Biking</option>
-            <option value="Driving">Driving</option>
-            <option value="Public Transit">Public Transit</option>
-            <option value="Flying">Flying</option>
-          </Select>
-        </FormControl>
+            <FormLabel>Transportation Method:</FormLabel>
+            <Select
+              placeholder="Select Transportation Method"
+              onChange={handleTransportationChange}
+            >
+              <option value="Walking">Walking</option>
+              <option value="Biking">Biking</option>
+              <option value="Driving">Driving</option>
+              <option value="Public Transit">Public Transit</option>
+              <option value="Flying">Flying</option>
+            </Select>
+          </FormControl>
         </Box>
         <Button
           onClick={routeChange}
