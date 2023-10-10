@@ -47,8 +47,7 @@ const RouteValues = (props) => {
       <Navbar />
       <Center>
         <VStack spacing={1} alignItems={"flex-start"} fontSize={20}>
-          
-            <Box
+          <Box
             bg="beige"
             width={450}
             borderColor={"gray"}
@@ -72,13 +71,8 @@ const RouteValues = (props) => {
               <b>End: </b> {data.valueE}
             </h1>
           </Box>
-          <Box
-            width={450}
-            padding={3}
-          >
-            
-          </Box>
-          
+          <Box width={450} padding={3}></Box>
+
           <Box
             bg="green.100"
             minW={450}
