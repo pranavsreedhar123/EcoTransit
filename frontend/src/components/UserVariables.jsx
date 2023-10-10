@@ -112,10 +112,10 @@ const UserVariables = (props) => {
               padding={2}
             >
               <h1>
-                <b>Number of Passengers (10 MAX): </b>
+                <b>Number of Passengers (1000 MAX): </b>
               </h1>
               <FormControl>
-                <NumberInput min={1} max={10} defaultValue={1} onChange={(valueString, valueNumber) => handlePassengerChange(valueNumber)}>
+                <NumberInput min={1} max={1000} defaultValue={1} onChange={(valueString, valueNumber) => handlePassengerChange(valueNumber)}>
                   <NumberInputField />
                 </NumberInput>
               </FormControl>
