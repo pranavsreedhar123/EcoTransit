@@ -42,7 +42,6 @@ const Route = () => {
         throw new Error(`${response.status} ${response.statusText}`);
       }
       const data = await response.json();
-      //   console.log(data);
       let path = `/map`;
       navigate(path, { state: { ...data, transportationMethod } });
     } catch (error) {

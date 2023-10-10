@@ -4,8 +4,6 @@ import {
   VStack,
   Box,
   Button,
-  FormControl,
-  Select,
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -23,6 +21,8 @@ const RouteValues = (props) => {
     durationW: "",
     distanceT: "",
     durationT: "",
+    distanceC: "",
+    durationC: "",
     transportationMode: "",
   });
 
@@ -40,14 +40,6 @@ const RouteValues = (props) => {
     getLocation();
   }, [location]);
 
-  const handleTransportationChange = (e) => {
-    const selectedMode = e.target.value;
-    setData((prevData) => ({
-      ...prevData,
-      transportationMode: selectedMode,
-    }));
-  };
-
   const navigate = useNavigate();
   const routeChange = () => {
     let path = `/route`;
@@ -60,7 +52,6 @@ const RouteValues = (props) => {
       <Center>
         <VStack
           spacing={1}
-          paddingTop={100}
           alignItems={"flex-start"}
           fontSize={25}
         >
@@ -101,10 +92,10 @@ const RouteValues = (props) => {
             padding={2}
           >
             <h2>
-              <b>Transit</b> (If Available, else uses Default)<b>: </b>
+              <b>Bicycling: </b>
             </h2>
-            <li>Distance: {data.distanceT}</li>
-            <li>Duration: {data.durationT}</li>
+            <li>Distance: {data.distanceC}</li>
+            <li>Duration: {data.durationC}</li>
           </Box>
           <Box
             bg="green.100"
@@ -114,22 +105,16 @@ const RouteValues = (props) => {
             borderRadius="lg"
             padding={2}
           >
-            <h1>
-              <b>Mode of Transportation: </b>
-            </h1>
-            <FormControl>
-              <Select onChange={handleTransportationChange}>
-                <option value="Walking">Walking</option>
-                <option value="Biking">Biking</option>
-                <option value="Driving">Driving</option>
-                <option value="Public Transit">Public Transit</option>
-                <option value="Flying">Flying</option>
-              </Select>
-            </FormControl>
+            <h2>
+              <b>Transit</b> (If Available, else uses Default)<b>: </b>
+            </h2>
+            <li>Distance: {data.distanceT}</li>
+            <li>Duration: {data.durationT}</li>
           </Box>
+          
           <Box paddingTop={50}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
-              Calculate Carbon Estimate
+              Next
             </Button>
           </Box>
         </VStack>
