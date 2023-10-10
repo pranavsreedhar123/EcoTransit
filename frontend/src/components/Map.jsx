@@ -36,7 +36,13 @@ const Map = (props) => {
   const [zoom, setZoom] = useState(4);
   useEffect(() => {
     const getLocation = async () => {
-      const { originlat, originlng, destinationlat, destinationlng, transportationMethod } = location.state;
+      const {
+        originlat,
+        originlng,
+        destinationlat,
+        destinationlng,
+        transportationMethod,
+      } = location.state;
       setData({
         origin: getPoint(originlat, originlng),
         destination: getPoint(destinationlat, destinationlng),
@@ -58,7 +64,7 @@ const Map = (props) => {
   return (
     <>
       <VStack spacing={1} alignItems={"flex-start"}>
-      <h2>
+        <h2>
           <b>Mode of Transportation</b>: {data.transportationMethod}
         </h2>
         <h2>
