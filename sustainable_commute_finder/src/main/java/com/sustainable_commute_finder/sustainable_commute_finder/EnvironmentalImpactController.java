@@ -41,7 +41,7 @@ public class EnvironmentalImpactController {
         } else if ("driving".equalsIgnoreCase(mode)) {
             impact = distance * 0.02; // 0.02 trees planted per mile drove
         } else if ("transit".equalsIgnoreCase(mode)) {
-            impact = distance * 0.05; // Example: 0.05 trees planted per mile using public transport
+            impact = distance * 0.05; // 0.05 trees planted per mile using public transport
         } else if ("bicycling".equalsIgnoreCase(mode)) {
             impact = distance * 0.1; // 0.1 trees planted per mile cycled
         }
