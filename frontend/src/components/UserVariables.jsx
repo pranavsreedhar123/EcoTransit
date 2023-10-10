@@ -53,15 +53,14 @@ const UserVariables = (props) => {
     const selectedCarId = e.target.value;
     setData((prevData) => ({
       ...prevData,
-      carId: selectedCarId
+      carId: selectedCarId,
     }));
   };
 
   const handlePassengerChange = (e) => {
-    const selectedPassengerCount = e.target.value;
     setData((prevData) => ({
       ...prevData,
-      passengers: selectedPassengerCount
+      passengers: e,
     }));
   };
 
@@ -102,26 +101,34 @@ const UserVariables = (props) => {
               </Select>
             </FormControl>
           </Box>
-          {data.transportationMode !== 'Walking' && data.transportationMode !== 'Biking' && (
-            <Box
-              bg="green.100"
-              minW={450}
-              borderColor={"gray"}
-              borderWidth="2px"
-              borderRadius="lg"
-              padding={2}
-            >
-              <h1>
-                <b>Number of Passengers (1000 MAX): </b>
-              </h1>
-              <FormControl>
-                <NumberInput min={1} max={1000} defaultValue={1} onChange={(valueString, valueNumber) => handlePassengerChange(valueNumber)}>
-                  <NumberInputField />
-                </NumberInput>
-              </FormControl>
-            </Box>
-          )}
-          {data.transportationMode === 'Driving' && (
+          {data.transportationMode !== "Walking" &&
+            data.transportationMode !== "Biking" && (
+              <Box
+                bg="green.100"
+                minW={450}
+                borderColor={"gray"}
+                borderWidth="2px"
+                borderRadius="lg"
+                padding={2}
+              >
+                <h1>
+                  <b>Number of Passengers (1000 MAX): </b>
+                </h1>
+                <FormControl>
+                  <NumberInput
+                    min={1}
+                    max={1000}
+                    defaultValue={1}
+                    onChange={(valueString, valueNumber) =>
+                      handlePassengerChange(valueNumber)
+                    }
+                  >
+                    <NumberInputField />
+                  </NumberInput>
+                </FormControl>
+              </Box>
+            )}
+          {data.transportationMode === "Driving" && (
             <Box
               bg="green.100"
               minW={450}
