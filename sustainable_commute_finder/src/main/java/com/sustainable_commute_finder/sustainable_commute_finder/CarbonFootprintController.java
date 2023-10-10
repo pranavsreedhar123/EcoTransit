@@ -19,7 +19,7 @@ public class CarbonFootprintController {
     @Value("${CARBON_INTERFACE_API_KEY}")
     private String API_KEY;
 
-    @RequestMapping(value = "/carbonFootprint",
+    @RequestMapping(value = "/carbonFootprintVehicle",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +40,7 @@ public class CarbonFootprintController {
         return vehicleResponse;
     }
 
-    @RequestMapping(value = "/carbonFootprint",
+    @RequestMapping(value = "/carbonFootprintTransit",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
