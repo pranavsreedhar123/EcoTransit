@@ -17,8 +17,6 @@ const Map = (props) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  // const transportationMethod = location.state?.transportationMethod || "";
-
   const [data, setData] = useState({
     origin: { lat: null, lng: null },
     destination: { lat: null, lng: null },
@@ -61,7 +59,7 @@ const Map = (props) => {
   return (
     <>
       <VStack spacing={1} alignItems={"flex-start"}>
-        <h2>
+      <h2>
           <b>Mode of Transportation</b>: {data.transportationMethod}
         </h2>
         <h2>
