@@ -43,7 +43,7 @@ const Route = () => {
       }
       const data = await response.json();
       let path = `/map`;
-      navigate(path, { state: { ...data, transportationMethod } });
+      navigate(path, { state: { ...data, valueS, valueE } });
     } catch (error) {
       toast({
         title: "Error Finding Route!",
