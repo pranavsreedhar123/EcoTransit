@@ -6,9 +6,6 @@ import {
   Button,
   useToast,
   Box,
-  FormControl,
-  FormLabel,
-  Select,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -100,27 +97,6 @@ const Route = () => {
             fontSize={20}
             size="sm"
           />
-        </Box>
-        <Box
-          borderRadius={10}
-          padding={2}
-          minWidth={450}
-          borderWidth="2px"
-          borderColor={"gray"}
-        >
-          <FormControl>
-            <FormLabel>Transportation Method:</FormLabel>
-            <Select
-              placeholder="Select Transportation Method"
-              onChange={handleTransportationChange}
-            >
-              <option value="Walking">Walking</option>
-              <option value="Biking">Biking</option>
-              <option value="Driving">Driving</option>
-              <option value="Public Transit">Public Transit</option>
-              <option value="Flying">Flying</option>
-            </Select>
-          </FormControl>
         </Box>
         <Button
           onClick={routeChange}
