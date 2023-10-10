@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Center,
-  VStack,
-  Box,
-  Button,
-} from "@chakra-ui/react";
+import { Center, VStack, Box, Button } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -50,11 +45,7 @@ const RouteValues = (props) => {
     <>
       <Navbar />
       <Center>
-        <VStack
-          spacing={1}
-          alignItems={"flex-start"}
-          fontSize={25}
-        >
+        <VStack spacing={1} alignItems={"flex-start"} fontSize={25}>
           <Box
             bg="green.100"
             minW={450}
@@ -111,7 +102,7 @@ const RouteValues = (props) => {
             <li>Distance: {data.distanceT}</li>
             <li>Duration: {data.durationT}</li>
           </Box>
-          
+
           <Box paddingTop={50}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
               Next
