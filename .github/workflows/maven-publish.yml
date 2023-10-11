@@ -26,7 +26,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Build with Maven
-      run: ./sustainable-commute-finder/mvnw clean package
+      run: cd sustainable_commute_finder && ls && mvn clean package
 
     - name: Deploy to Google Cloud App Engine
       run: gcloud app deploy sustainable_commute_finder/target/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
