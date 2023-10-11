@@ -13,12 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
-      with:
-        project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCLOUD_AUTH }}
-
     - name: Set up Java
       uses: actions/setup-java@v2
       with:
@@ -35,12 +29,8 @@ jobs:
       run: mvn clean package
       working-directory: ./sustainable_commute_finder/
 
-    - name: Setup Google Cloud SDK
-      # You may pin to the exact commit or the version.
-      # uses: mathieu-bour/setup-gcloud@3bb09468aad23fb31bd9e873e87a189d845063c3
-      uses: mathieu-bour/setup-gcloud@1.3.1
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
       with:
-        # The service account key to use, base64-encoded.
-        service-account-key: "98839b643aad3236de312a54adf6de2758050f38"
-        # The default Google Cloud project. You can change it later.
-        project: "ecotransit-401621"
+        credentials_json: '{"type": "service_account", "project_id": "ecotransit-401621", "private_key_id": "98839b643aad3236de312a54adf6de2758050f38", "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDh/g37GMCqHQuw\n3DvvM7AjxgQrg+TlyMgd/pWOlVMcoubO6UgLLrzDGeARWXJropMzDZy+bvCmID+A\nBNOVfnBQ7R11DBGMTo2ms15eYhSxciKCLI+ZtQkTDJaX02iupNos1ux3CstXsuHh\n0zKWOhJBegzjbG+srvVTe3MkOLyWHgwGeQzTSCzFkl/lTbIs1IIcA+6BFPX7hC64\ntl5Cf97Udt/wVJDsEKPIgBuN8AxTPL+1iqCU1LpRwrDxV+UGD6zQ6wM5A4TNpVEO\n/kbQ2nSGDWdv9Hx9U8JME8xP07eAXDl83gZfw5oQME4KxQP/khI3dUA0c7yOGt8Z\nCeBvrzy1AgMBAAECggEAC7Xie5R4x1fh9zQyVt7SzcfBB5A6GD4jQIqkrVLHj8BR\nPX+RICM33NRGbB+6ciFmh0q5SJTvG2yoXbXiUOjQYSEoWZxafG7FoFHDHhjvAZLs\nftpYRpq+8aHBW/S0g/g+5fvtHO4OQ2kdk1oiUO6Ja6Mrb816q/QU+lJ3UPUvsIed\nIlllDFe4XDlcW1500+5axjhzli+MRpayzxNOqOQbXa9s1iwIWiK59deI8q+6q1Ku\nSYfDIivoxlZcj2hwt2gd/MH1o8bC7GV6COShbhvfxTRjLkuVYVCpoxB4F0x9ySut\npqhA4jhemN+sjv84eyiTb/VnhKuYIPaZ3OJy6ByOAQKBgQDxTVv1wjDmvmk6vO2n\ny7g1kZ4G+HkrAmLdO33jtg7ILYcXjmOgnuQV4Wjf+XTsJ2/NcCO4Ub8t/diJbV9a\n4ooj5U5n3PPRNFNpX+9jZQ+NmfeXegD0L0hmMqdhMa0hSvV0AXFpYJiHcVvjrQYk\npRBi7Q7ZCYsxgasbRX8skpTLYQKBgQDvwfgMFKa/2c0iY5CSfdFQt/zV2JRe3SpC\nR2N3hLHl+HDzFGHSloP9uln2XKWKFHscKwOnSX0Ng+xZIoA4IkCuPolt/8M17IMs\nQRmRf+WYvorHA50Ed82f9uPjcjvp6LPALha2I48eloRm2RaoS6bhAMNQZXjql4nI\n/buQ/p0l1QKBgQDDRGDIbY75CtlI6R5AjQDSiLYi2evjvBiZAs2K+gbYQs9xZo6E\nqk/UzQX7SXkuqXM2AitFuxFEfIlAHLvvZid3iNZ8Ajdj8j4Vpcao3l1Jr3DGqbof\n4CtsWE1Ov85khK5AY/KM3dhQspEzmw6/lLu/8inzxF9Zfp8igIi7Xxr9wQKBgQCJ\njO/hBmwQP0V4CEUmNjbDJ3tPuHyO3DXlZo2DQUbK2Dj8zGG+7ol1JNd+BvMV/+AN\nbgQfkoLDIT+Ud7219rjC/q/bwtNc+X7cAdFIb2bqtc5qlQEdUhpPPtbJY31KGi4e\nAJMZFdeDRflaBAwCq7xm9AgZ9M1lUWFERYW5jsnbrQKBgQCODwWgIYQHmBwspimj\noz6BatLYi/WDjCjl3slG41SFy+Lmy/MXWhtg1MZMkVcGzO+etG7VbABBBocLrRRo\ne0H/JXTiLT768BnamHRRyvgDn5tFmwbzyRHzlrc7P6vYROl1nZJYsZAFsENLMgdj\nroGamXDJ5+V61XQsaza7jYNuEA==\n-----END PRIVATE KEY-----\n", "client_email": "ecotransit-401621@appspot.gserviceaccount.com", "client_id": "114213325225302692559", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ecotransit-401621%40appspot.gserviceaccount.com", "universe_domain": "googleapis.com"}'
+        
