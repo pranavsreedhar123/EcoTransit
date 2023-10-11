@@ -31,6 +31,7 @@ const UserVariables = (props) => {
   });
 
   useEffect(() => {
+    console.log(data);
     const getLocation = async () => {
       const data = location.state;
       setData({
@@ -41,7 +42,7 @@ const UserVariables = (props) => {
     };
 
     getLocation();
-  }, [location]);
+  }, [data, location]);
 
   const handleTransportationChange = (e) => {
     const selectedMode = e.target.value;

@@ -2,3 +2,6 @@ frontend/config.env
 frontend/.env
 .DS_Store
 .idea
+sustainable_commute_finder/.gcloudignore
+frontend/deploy/*
+frontend/.gcloudignore

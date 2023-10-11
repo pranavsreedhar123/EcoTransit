@@ -28,7 +28,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "rm -rf deploy/*",
     "build": "react-scripts build",
+    "postbuild": "mkdir deploy && cp -r build deploy/build && cp app.yaml deploy/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write ."
