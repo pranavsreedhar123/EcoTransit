@@ -1,4 +1,4 @@
-package com.sustainable_commute_finder.sustainable_commute_finder;
+package com.sustainable_commute_finder.sustainable_commute_finder.requests;
 
 public class EnvironmentalImpactRequest {
     private double commuteDistance;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Center, VStack, Box, Button } from "@chakra-ui/react";
+import { Center, VStack, Box, Button, HStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -18,7 +18,8 @@ const RouteValues = (props) => {
     durationT: "",
     distanceC: "",
     durationC: "",
-    transportationMode: "",
+    valueS: "",
+    valueE: "",
   });
 
   useEffect(() => {
@@ -38,14 +39,40 @@ const RouteValues = (props) => {
   const navigate = useNavigate();
   const routeChange = () => {
     let path = `/user-variables`;
-    navigate(path);
+    navigate(path, { state: data });
   };
 
   return (
     <>
       <Navbar />
       <Center>
-        <VStack spacing={1} alignItems={"flex-start"} fontSize={25}>
+        <VStack spacing={1} alignItems={"flex-start"} fontSize={20}>
+          <Box
+            bg="beige"
+            width={450}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={2}
+          >
+            <h1>
+              <b>Start: </b> {data.valueS}
+            </h1>
+          </Box>
+          <Box
+            bg="beige"
+            width={450}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={2}
+          >
+            <h1>
+              <b>End: </b> {data.valueE}
+            </h1>
+          </Box>
+          <Box width={450} padding={3}></Box>
+
           <Box
             bg="green.100"
             minW={450}
@@ -97,13 +124,13 @@ const RouteValues = (props) => {
             padding={2}
           >
             <h2>
-              <b>Transit</b> (If Available, else uses Default)<b>: </b>
+              <b>Transit: </b>
             </h2>
             <li>Distance: {data.distanceT}</li>
             <li>Duration: {data.durationT}</li>
           </Box>
 
-          <Box paddingTop={50}>
+          <Box paddingTop={5}>
             <Button onClick={routeChange} colorScheme="blue" width={450}>
               Next
             </Button>

@@ -1,4 +1,4 @@
-package com.sustainable_commute_finder.sustainable_commute_finder;
+package com.sustainable_commute_finder.sustainable_commute_finder.controllers;
 
 import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintTransitRequestBody;
 import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintVehicleRequestBody;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-
 @RestController
 public class CarbonFootprintController {
     RestTemplate restTemplate;
@@ -19,18 +18,16 @@ public class CarbonFootprintController {
     @Value("${CARBON_INTERFACE_API_KEY}")
     private String API_KEY;
 
-    @RequestMapping(value = "/carbonFootprint",
+    @RequestMapping(value = "/carbonFootprintVehicle",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getCarbonFootprint(@RequestBody CarbonFootprintVehicleRequestBody vehicleRequestBody,
-                                     @RequestBody CarbonFootprintTransitRequestBody transitRequestBody) {
+    public CarbonFootprintResponseData getCarbonFootprint(@RequestBody CarbonFootprintVehicleRequestBody vehicleRequestBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + API_KEY);
 
         HttpEntity <CarbonFootprintVehicleRequestBody> vehicleRequest = new HttpEntity(vehicleRequestBody, headers);
-        HttpEntity <CarbonFootprintTransitRequestBody> transitRequest = new HttpEntity(transitRequestBody, headers);
 
         String url = "https://www.carboninterface.com/api/v1/estimates";
         restTemplate = new RestTemplate();
@@ -39,15 +36,28 @@ public class CarbonFootprintController {
                                                 vehicleRequest,
                                                 CarbonFootprintResponseData.class).getBody();
 
-        CarbonFootprintResponseData transitResponse = restTemplate.exchange(url,
-                                                HttpMethod.POST,
-                                                transitRequest,
-                                                CarbonFootprintResponseData.class).getBody();
+        return vehicleResponse;
+    }
 
-        String response = vehicleResponse.getData().getType() + " Carbon footprint: "
-                + vehicleResponse.getData().getAttributes().getCarbonKg() + "\n" +
-                transitResponse.getData().getAttributes().getTransportMethod() + " Carbon footprint: "
-                + transitResponse.getData().getAttributes().getCarbonKg();
-        return response;
+    @RequestMapping(value = "/carbonFootprintTransit",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public CarbonFootprintResponseData getCarbonFootprint(@RequestBody CarbonFootprintTransitRequestBody transitRequestBody) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + API_KEY);
+
+        HttpEntity <CarbonFootprintTransitRequestBody> transitRequest = new HttpEntity(transitRequestBody, headers);
+
+        String url = "https://www.carboninterface.com/api/v1/estimates";
+        restTemplate = new RestTemplate();
+
+        CarbonFootprintResponseData transitResponse = restTemplate.exchange(url,
+                HttpMethod.POST,
+                transitRequest,
+                CarbonFootprintResponseData.class).getBody();
+
+        return transitResponse;
     }
 }
