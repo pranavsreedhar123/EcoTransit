@@ -2,7 +2,10 @@ name: Deploy to GCP
 
 on:
   workflow_run:
-    workflows: ["Build React Project"]
+    workflows: 
+      - Build React Project
+    branches: 
+      - frontend-deploy
     types:
       - completed
 
