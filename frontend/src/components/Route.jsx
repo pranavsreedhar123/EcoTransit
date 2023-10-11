@@ -21,15 +21,16 @@ const Route = () => {
     let inputValue = e.target.value;
     setValueE(inputValue);
   };
-  let handleTransportationChange = (e) => {
-    let inputValue = e.target.value;
-    setTransportationMethod(inputValue);
-  };
+  // let handleTransportationChange = (e) => {
+  //   let inputValue = e.target.value;
+  //   setTransportationMethod(inputValue);
+  // };
 
   const toast = useToast();
   const navigate = useNavigate();
   let [loading, setLoading] = useState(false);
   const routeChange = async () => {
+    setTransportationMethod("Test");
     setLoading(true);
     try {
       const response = await fetch(
