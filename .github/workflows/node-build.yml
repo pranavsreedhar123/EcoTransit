@@ -49,6 +49,7 @@ jobs:
               
         - name: Add Environment Variables
           run: |
+            ls
             echo "env_variables:" >> build-artifacts/app.yaml
             echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> build-artifacts/app.yaml
           working-directory: ./frontend/
