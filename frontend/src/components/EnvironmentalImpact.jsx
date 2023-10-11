@@ -32,10 +32,10 @@ const EnvironmentalImpact = () => {
         })
         .catch((error) => {
           console.error("Error:", error);
-          toast.error("An error occurred while fetching data from the server.");
+          toast({ title: "Error !", description: "An error occurred while fetching data from the server.", , status: "error", duration: 5000, isClosable: true, });
         });
     } else {
-      toast.error("Please select a transportation method.");
+      toast({ title: "Error !", description: "Please select a transportation method.", status: "error", duration: 5000, isClosable: true, });
     }
   };
 
