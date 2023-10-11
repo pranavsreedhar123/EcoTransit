@@ -35,7 +35,8 @@ const Results = (props) => {
 
   const [isSecondBoxVisible, setIsSecondBoxVisible] = useState(true);
   const [isThirdBoxVisible, setIsThirdBoxVisible] = useState(false);
-  const [isComparisonResultVisible, setIsComparisonResultVisible] = useState(false);
+  const [isComparisonResultVisible, setIsComparisonResultVisible] =
+    useState(false);
 
   useEffect(() => {
     const getLocation = async () => {
@@ -61,8 +62,10 @@ const Results = (props) => {
       ...prevData,
       otherTransportationMode: selectedMode,
     }));
-    setIsThirdBoxVisible(selectedMode === 'Driving');
-    setIsSecondBoxVisible(selectedMode !== 'Walking' && selectedMode !== 'Biking');
+    setIsThirdBoxVisible(selectedMode === "Driving");
+    setIsSecondBoxVisible(
+      selectedMode !== "Walking" && selectedMode !== "Biking",
+    );
   };
 
   const handleCarIdChange = (e) => {
@@ -118,7 +121,9 @@ const Results = (props) => {
               <b>Compare to Other Transportation Methods</b>
             </h1>
             <FormControl>
-              <FormLabel>Select an alternative transportation method:</FormLabel>
+              <FormLabel>
+                Select an alternative transportation method:
+              </FormLabel>
               <Select onChange={handleTransportationChange}>
                 <option value="Public Transit">Public Transit</option>
                 <option value="Flying">Flying</option>
@@ -129,22 +134,26 @@ const Results = (props) => {
             </FormControl>
             {isSecondBoxVisible && (
               <FormControl>
-                <FormLabel>Select an alternative number of passengers (1000 MAX):</FormLabel>
-              <NumberInput
-                min={1}
-                max={1000}
-                defaultValue={1}
-                onChange={(valueString, valueNumber) =>
-                  handlePassengerChange(valueNumber)
-                }
-              >
-                <NumberInputField />
-              </NumberInput>
+                <FormLabel>
+                  Select an alternative number of passengers (1000 MAX):
+                </FormLabel>
+                <NumberInput
+                  min={1}
+                  max={1000}
+                  defaultValue={1}
+                  onChange={(valueString, valueNumber) =>
+                    handlePassengerChange(valueNumber)
+                  }
+                >
+                  <NumberInputField />
+                </NumberInput>
               </FormControl>
             )}
             {isThirdBoxVisible && (
               <FormControl>
-                <FormLabel>Select an alternative vehicle Specification: </FormLabel>
+                <FormLabel>
+                  Select an alternative vehicle Specification:{" "}
+                </FormLabel>
                 <Select onChange={handleCarIdChange}>
                   <option value="Car 1">Car 1</option>
                   <option value="Car 2">Car 2</option>
@@ -154,11 +163,17 @@ const Results = (props) => {
                 </Select>
               </FormControl>
             )}
-            <Button onClick={showComparisonResult} colorScheme="blue" width={450}>
+            <Button
+              onClick={showComparisonResult}
+              colorScheme="blue"
+              width={450}
+            >
               Calculate Alternate Carbon Estimate
             </Button>
             {isComparisonResultVisible && (
-              <h3><b>Alternate Carbon Footprint: </b> 15 g</h3>
+              <h3>
+                <b>Alternate Carbon Footprint: </b> 15 g
+              </h3>
             )}
           </Box>
           <Box
