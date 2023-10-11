@@ -32,10 +32,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+       
      - id: 'auth'
        uses: 'google-github-actions/auth@v1'
        with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
      - name: 'Set up Cloud SDK'
        uses: 'google-github-actions/setup-gcloud@v1'
        with:
