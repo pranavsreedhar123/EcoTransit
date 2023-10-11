@@ -45,12 +45,12 @@ jobs:
           uses: actions/download-artifact@v2
           with:
             name: build-artifacts
-            path: frontend/
+            path: ./frontend/
               
         - name: Add Environment Variables
           run: |
-            echo "env_variables:" >> deploy/app.yaml
-            echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> deploy/app.yaml
+            echo "env_variables:" >> build-artifacts/app.yaml
+            echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> build-artifacts/app.yaml
           working-directory: ./frontend/
                 
         - name: Check
