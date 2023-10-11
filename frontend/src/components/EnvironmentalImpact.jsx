@@ -64,7 +64,7 @@ const EnvironmentalImpact = () => {
         console.log(distance);
         console.log(selectedTransportation);
         const response = await fetch(
-          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`
+          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
         );
 
         if (response.ok) {
@@ -74,7 +74,7 @@ const EnvironmentalImpact = () => {
 
           if (calculatedImpact > 0) {
             setResultMessage(
-              `This is equivalent to planting ${calculatedImpact} trees.`
+              `This is equivalent to planting ${calculatedImpact} trees.`,
             );
           } else {
             setResultMessage("This mode doesn't contribute to planting trees.");
