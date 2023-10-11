@@ -4,3 +4,4 @@ frontend/.env
 .idea
 sustainable_commute_finder/.gcloudignore
 frontend/deploy/*
+frontend/.gcloudignore

@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - frontend-deploy
-    paths:
-      - frontend/**
 
 jobs:
   build:
