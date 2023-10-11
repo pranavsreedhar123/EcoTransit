@@ -34,7 +34,7 @@ const Route = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/getLocation/${valueS}/${valueE}`,
+        `${process.env.REACT_APP_BACKEND_URL}/getLocation/${valueS}/${valueE}`,
       );
 
       if (!response.ok) {
