@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CarbonFootprintResponseData {
     @JsonProperty("data")
-    private CarbonFootprintVehicleResponseBody data;
+    private CarbonFootprintResponseBody data;
 
-    public CarbonFootprintVehicleResponseBody getData() {
+    public CarbonFootprintResponseBody getData() {
         return data;
     }
 
-    public void setData(CarbonFootprintVehicleResponseBody data) {
+    public void setData(CarbonFootprintResponseBody data) {
         this.data = data;
     }
 }
