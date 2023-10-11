@@ -1,0 +1,51 @@
+
+name: Maven Build and Package
+
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - sustainable_commute_finder/**
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Add Environment Variables
+      run: |
+          echo "GOOGLE_MAPS_KEY=${{ secrets.GOOGLE_MAPS_KEY }}" > .env.properties
+          echo "CARBON_INTERFACE_KEY=${{ secrets.CARBON_INTERFACE_KEY }}" >> .env.properties
+      working-directory: ./sustainable_commute_finder/
+      
+    - name: Maven Build and Package
+      run: mvn clean install spring-boot:repackage
+      working-directory: ./sustainable_commute_finder/
+      
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        version: '>= 363.0.0'
+        
+    - name: 'Deploy Application'
+      run: |
+           gcloud app deploy
+      working-directory: ./sustainable_commute_finder/
+     
+
+      
