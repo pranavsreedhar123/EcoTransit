@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormLabel,
   Select,
   NumberInput,
   NumberInputField,
@@ -12,7 +13,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
-const UserVariables = (props) => {
+const Results = (props) => {
   const location = useLocation();
 
   const [data, setData] = useState({
@@ -27,7 +28,14 @@ const UserVariables = (props) => {
     transportationMode: "",
     carId: "",
     passengers: 1,
+    otherTransportationMode: "",
+    otherCarId: "",
+    otherPassengers: 1,
   });
+
+  const [isSecondBoxVisible, setIsSecondBoxVisible] = useState(true);
+  const [isThirdBoxVisible, setIsThirdBoxVisible] = useState(false);
+  const [isComparisonResultVisible, setIsComparisonResultVisible] = useState(false);
 
   useEffect(() => {
     const getLocation = async () => {
@@ -41,33 +49,39 @@ const UserVariables = (props) => {
     getLocation();
   }, [location]);
 
+  const navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/route`;
+    navigate(path);
+  };
+
   const handleTransportationChange = (e) => {
     const selectedMode = e.target.value;
     setData((prevData) => ({
       ...prevData,
-      transportationMode: selectedMode,
+      otherTransportationMode: selectedMode,
     }));
+    setIsThirdBoxVisible(selectedMode === 'Driving');
+    setIsSecondBoxVisible(selectedMode !== 'Walking' && selectedMode !== 'Biking');
   };
 
   const handleCarIdChange = (e) => {
     const selectedCarId = e.target.value;
     setData((prevData) => ({
       ...prevData,
-      carId: selectedCarId,
+      otherCarId: selectedCarId,
     }));
   };
 
   const handlePassengerChange = (e) => {
     setData((prevData) => ({
       ...prevData,
-      passengers: e,
+      otherPassengers: e,
     }));
   };
 
-  const navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/results`;
-    navigate(path);
+  const showComparisonResult = () => {
+    setIsComparisonResultVisible(true);
   };
 
   return (
@@ -86,12 +100,25 @@ const UserVariables = (props) => {
             borderColor={"gray"}
             borderWidth="2px"
             borderRadius="lg"
-            padding={2}
+            padding={6}
           >
             <h1>
-              <b>Mode of Transportation: </b>
+              <b>Carbon Footprint:</b> 10 g
+            </h1>
+          </Box>
+          <Box
+            bg="green.100"
+            minW={450}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={6}
+          >
+            <h1>
+              <b>Compare to Other Transportation Methods</b>
             </h1>
             <FormControl>
+              <FormLabel>Select an alternative transportation method:</FormLabel>
               <Select onChange={handleTransportationChange}>
                 <option value="Public Transit">Public Transit</option>
                 <option value="Flying">Flying</option>
@@ -100,47 +127,24 @@ const UserVariables = (props) => {
                 <option value="Biking">Biking</option>
               </Select>
             </FormControl>
-          </Box>
-          {data.transportationMode !== "Walking" &&
-            data.transportationMode !== "Biking" && (
-              <Box
-                bg="green.100"
-                minW={450}
-                borderColor={"gray"}
-                borderWidth="2px"
-                borderRadius="lg"
-                padding={2}
-              >
-                <h1>
-                  <b>Number of Passengers (1000 MAX): </b>
-                </h1>
-                <FormControl>
-                  <NumberInput
-                    min={1}
-                    max={1000}
-                    defaultValue={1}
-                    onChange={(valueString, valueNumber) =>
-                      handlePassengerChange(valueNumber)
-                    }
-                  >
-                    <NumberInputField />
-                  </NumberInput>
-                </FormControl>
-              </Box>
-            )}
-          {data.transportationMode === "Driving" && (
-            <Box
-              bg="green.100"
-              minW={450}
-              borderColor={"gray"}
-              borderWidth="2px"
-              borderRadius="lg"
-              padding={2}
-            >
-              <h1>
-                <b>Vehicle Specification: </b>
-              </h1>
+            {isSecondBoxVisible && (
               <FormControl>
+                <FormLabel>Select an alternative number of passengers (1000 MAX):</FormLabel>
+              <NumberInput
+                min={1}
+                max={1000}
+                defaultValue={1}
+                onChange={(valueString, valueNumber) =>
+                  handlePassengerChange(valueNumber)
+                }
+              >
+                <NumberInputField />
+              </NumberInput>
+              </FormControl>
+            )}
+            {isThirdBoxVisible && (
+              <FormControl>
+                <FormLabel>Select an alternative vehicle Specification: </FormLabel>
                 <Select onChange={handleCarIdChange}>
                   <option value="Car 1">Car 1</option>
                   <option value="Car 2">Car 2</option>
@@ -149,12 +153,25 @@ const UserVariables = (props) => {
                   <option value="Car 5">Car 5</option>
                 </Select>
               </FormControl>
-            </Box>
-          )}
-          <Box paddingTop={50}>
-            <Button onClick={routeChange} colorScheme="blue" width={450}>
-              Calculate Carbon Estimate
+            )}
+            <Button onClick={showComparisonResult} colorScheme="blue" width={450}>
+              Calculate Alternate Carbon Estimate
             </Button>
+            {isComparisonResultVisible && (
+              <h3><b>Alternate Carbon Footprint: </b> 15 g</h3>
+            )}
+          </Box>
+          <Box
+            bg="green.100"
+            minW={450}
+            borderColor={"gray"}
+            borderWidth="2px"
+            borderRadius="lg"
+            padding={6}
+          >
+            <h1>
+              <b>Environmental Impact Stuff Goes Here!</b>
+            </h1>
           </Box>
         </VStack>
       </Center>
@@ -162,4 +179,4 @@ const UserVariables = (props) => {
   );
 };
 
-export default UserVariables;
+export default Results;

@@ -13,6 +13,7 @@ import App from "routes/App";
 import Map from "components/Map";
 import RouteValues from "components/RouteValues";
 import UserVariables from "components/UserVariables";
+import Results from "components/Results";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   { path: "/map", element: <Map /> },
   { path: "/route-value", element: <RouteValues /> },
   { path: "/user-variables", element: <UserVariables /> },
+  { path: "/results", element: <Results /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
