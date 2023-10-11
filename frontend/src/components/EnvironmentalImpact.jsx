@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, FormControl, Select } from "@chakra-ui/react";
+import { useToast} from "@chakra-ui/react";
 import Axios from "axios";
 
 const EnvironmentalImpact = () => {
+  const toast = useToast();
   const [selectedTransportation, setSelectedTransportation] = useState("");
   const [distance, setDistance] = useState(0);
   const [impact, setImpact] = useState(0);
@@ -15,10 +17,11 @@ const EnvironmentalImpact = () => {
 
   const calculateImpact = (distance, selectedTransportation) => {
     if (selectedTransportation) {
-      Axios.get(
-        `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
-      )
-        .then((response) => {
+      try {
+        const response = await fetch( 
+          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
+        );
+        if(response.ok) {
           const calculatedImpact = response.data.positiveImpact;
           setImpact(calculatedImpact); // Update the impact state
 
@@ -29,13 +32,25 @@ const EnvironmentalImpact = () => {
           } else {
             toast.info("This mode doesn't contribute to planting trees.");
           }
-        })
-        .catch((error) => {
+        }
+      } catch(error) {
           console.error("Error:", error);
-          toast({ title: "Error !", description: "An error occurred while fetching data from the server.", , status: "error", duration: 5000, isClosable: true, });
-        });
+          toast({ 
+            title: "Error !", 
+            description: "An error occurred while fetching data from the server.",
+            status: "error", 
+            duration: 5000, 
+            isClosable: true, 
+          });
+        }
     } else {
-      toast({ title: "Error !", description: "Please select a transportation method.", status: "error", duration: 5000, isClosable: true, });
+      toast({
+        title: "Error !",
+        description: "Please select a transportation method.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
