@@ -43,7 +43,7 @@ const Route = () => {
       }
       const data = await response.json();
       let path = `/map`;
-      navigate(path, { state: { ...data, transportationMethod } });
+      navigate(path, { state: { ...data, valueS, valueE } });
     } catch (error) {
       toast({
         title: "Error Finding Route!",
@@ -62,8 +62,7 @@ const Route = () => {
       <VStack spacing={1} alignItems={"flex-start"} padding={30} fontSize={25}>
         <h1 size="xl">
           Welcome to EcoTransit! Begin by entering your start and end locations
-          within the United States of America, as well as a method of
-          transportation.
+          within the United States of America.
         </h1>
         <Box
           borderRadius={10}
