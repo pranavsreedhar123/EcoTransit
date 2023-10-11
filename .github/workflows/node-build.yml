@@ -36,6 +36,9 @@ jobs:
       name: Deploy
       needs: build
       runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./frontend/
         
       steps:
         - name: Checkout code
@@ -52,13 +55,7 @@ jobs:
             ls
             echo "env_variables:" >> deploy/app.yaml
             echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> deploy/app.yaml
-          working-directory: ./frontend/
-                
-        - name: Check
-          run: |
-            cat deploy/app.yaml
-          working-directory: ./frontend/
-        
+  
         - id: 'auth'
           uses: 'google-github-actions/auth@v1'
           with:
@@ -67,4 +64,7 @@ jobs:
           uses: 'google-github-actions/setup-gcloud@v1'
           with:
             version: '>= 363.0.0'
+        - name: Deploy
+          run: |
+            gcloud app deploy deploy/
 
