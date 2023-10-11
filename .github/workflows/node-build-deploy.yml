@@ -33,18 +33,42 @@ jobs:
 
       - name: Build
         run: CI=false npm run build
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: frontend/deploy
 
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS_FRONTEND }}'
+  
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend/
+    needs: build
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+       
+     - name: Download build artifacts
+       uses: actions/download-artifact@v2
+       with:
+         name: build-artifacts
+         path: frontend/deploy
+
+     - id: 'auth'
+       uses: 'google-github-actions/auth@v1'
+       with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS_FRONTEND }}'
         
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-        with:
+     - name: 'Set up Cloud SDK'
+       uses: 'google-github-actions/setup-gcloud@v1'
+       with:
           version: '>= 363.0.0'
 
-      - name: Deploy
-        run: |
+     - name: Deploy
+       run: |
           gcloud app deploy deploy/
+    
 
