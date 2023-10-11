@@ -68,8 +68,8 @@ const UserVariables = (props) => {
 
   const navigate = useNavigate();
   const routeChange = () => {
-    let path = `/environmental-impact`;
-    navigate(path, { state: data });
+    let path = `/results`;
+    navigate(path);
   };
 
   return (
