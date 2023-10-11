@@ -30,16 +30,16 @@ const EnvironmentalImpact = () => {
           } else {
             setResultMessage("This mode doesn't contribute to planting trees.");
           }
-        } else {
-          setResultMessage(
-            "An error occurred while fetching data from the server.",
-          );
-        }
+        } 
       } catch (error) {
         console.error("Error:", error);
-        setResultMessage(
-          "An error occurred while fetching data from the server.",
-        );
+        toast({
+            title: "Error !",
+            description: "An error occurred while fetching data from the server.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+        });
       }
     } else {
       setResultMessage("Please select a transportation method.");
