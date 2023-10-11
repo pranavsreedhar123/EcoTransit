@@ -12,6 +12,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
+const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
 const UserVariables = (props) => {
   const location = useLocation();
 
@@ -32,8 +33,9 @@ const UserVariables = (props) => {
   useEffect(() => {
     const getLocation = async () => {
       const data = location.state;
-      console.log(data);
       setData({
+        origin: getPoint(data.originlat, data.originlng),
+        destination: getPoint(data.destinationlat, data.destinationlng),
         ...data,
       });
     };
