@@ -1,47 +1,42 @@
 name: Deploy to GCP
 
 on:
-  workflow_run:
-    workflows: 
-      - Build React Project
-    branches: 
-      - frontend-deploy
-    types:
-      - completed
+  push: 
+    branches:
+      - main
+    paths:
+      - frontend/**
+  
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./frontend/
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
-          path: frontend/
-      
-      - name: Add Environment Variables
-        run: |
-          echo "env_variables:" >> deploy/app.yaml
-          echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> deploy/app.yaml
-        working-directory: ./frontend/
-        
-      - name: Check
-        run: |
-          cat deploy/app.yaml
-        working-directory: ./frontend/
+          path: frontend/deploy
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS_FRONTEND }}'
-      
+        
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
         with:
-         version: '>= 363.0.0'
+          version: '>= 363.0.0'
+
+      - name: Deploy
+        run: |
+          gcloud app deploy deploy/
         
       
