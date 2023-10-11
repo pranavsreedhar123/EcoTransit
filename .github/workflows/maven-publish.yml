@@ -61,5 +61,4 @@ jobs:
      - name: 'Deploy Application'
        run: |
            gcloud app deploy artifacts/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
-       working-directory: ./sustainable_commute_finder/
      
