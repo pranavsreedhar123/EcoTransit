@@ -3,7 +3,7 @@ name: Maven Package and Google Cloud Deploy
 on:
   push:
     branches:
-      - backend-cicd  # Change this to the branch you want to trigger the workflow on
+      - main  # Change this to the branch you want to trigger the workflow on
 
 jobs:
   build:
