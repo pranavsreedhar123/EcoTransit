@@ -2,7 +2,7 @@
 name: Maven Build and Package
 
 on:
-  pull_request:
+  push:
     branches: 
       - main
     paths:
@@ -30,6 +30,21 @@ jobs:
       
     - name: Maven Build and Package
       run: mvn clean install spring-boot:repackage
+      working-directory: ./sustainable_commute_finder/
+      
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        version: '>= 363.0.0'
+        
+    - name: 'Deploy Application'
+      run: |
+           gcloud app deploy
       working-directory: ./sustainable_commute_finder/
      
 
