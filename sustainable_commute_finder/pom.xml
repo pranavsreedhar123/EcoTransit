@@ -58,30 +58,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
-			<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.2.0</version>
-            <configuration>
-                <delimiters>
-                    <delimiter>${*}</delimiter>
-                </delimiters>
-                <useDefaultDelimiters>false</useDefaultDelimiters>
-                <!-- ... other configuration ... -->
-            </configuration>
-        </plugin>
 		</plugins>
-
-		<resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.properties</include>
-                <include>**/*.env.properties</include> <!-- Include the .env.properties file -->
-            </includes>
-        </resource>
-    </resources>
 	</build>
 
 </project>
