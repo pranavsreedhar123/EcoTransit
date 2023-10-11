@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   { path: "/map", element: <Map /> },
   { path: "/route-value", element: <RouteValues /> },
   { path: "/user-variables", element: <UserVariables /> },
-  { path: "/environmental-impact", element: <displayEnvironmentalImpact />},
+  { path: "/environmental-impact", element: <displayEnvironmentalImpact /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
