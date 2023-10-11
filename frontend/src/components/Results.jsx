@@ -48,7 +48,7 @@ const Results = (props) => {
         distance_value: data.distanceD,
         car_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
       }
-      const url = "localhost:8080/carbonFootprintVehicle"
+      const url = "http://localhost:8080/carbonFootprintVehicle"
       axios.post(url, requestBody)
       .then(response => {
         console.log(response.status);
