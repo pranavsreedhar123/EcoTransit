@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import axios from 'axios';
 
 const Results = (props) => {
   const location = useLocation();
@@ -35,20 +36,45 @@ const Results = (props) => {
 
   const [isSecondBoxVisible, setIsSecondBoxVisible] = useState(true);
   const [isThirdBoxVisible, setIsThirdBoxVisible] = useState(false);
-  const [isComparisonResultVisible, setIsComparisonResultVisible] =
-    useState(false);
+  const [isComparisonResultVisible, setIsComparisonResultVisible] = useState(false);
+
+  const getCarbonFootprint = () => {
+    if (data.transportationMode === "Walking" || data.transportationMode === "Biking") {
+      return 0;
+    } else if (data.transportationMode === "Driving") {
+      const requestBody = {
+        type: "vehicle",
+        distance_unit: "km",
+        distance_value: data.distanceD,
+        car_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
+      }
+      const url = "localhost:8080/carbonFootprintVehicle"
+      axios.post(url, requestBody)
+      .then(response => {
+        console.log(response.status);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+    }
+  };
 
   useEffect(() => {
     const getLocation = async () => {
-      const data = location.state;
-      console.log(data);
-      setData({
-        ...data,
-      });
+      const dataFromLocation = location.state;
+      if (dataFromLocation) {
+        setData({
+          ...data,
+          ...dataFromLocation
+        });
+      } else {
+        console.warn('No location state provided');
+      }
     };
-
+  
     getLocation();
   }, [location]);
+  
 
   const navigate = useNavigate();
   const routeChange = () => {
@@ -58,6 +84,7 @@ const Results = (props) => {
 
   const handleTransportationChange = (e) => {
     const selectedMode = e.target.value;
+    getCarbonFootprint();
     setData((prevData) => ({
       ...prevData,
       otherTransportationMode: selectedMode,
@@ -126,7 +153,6 @@ const Results = (props) => {
               </FormLabel>
               <Select onChange={handleTransportationChange}>
                 <option value="Public Transit">Public Transit</option>
-                <option value="Flying">Flying</option>
                 <option value="Driving">Driving</option>
                 <option value="Walking">Walking</option>
                 <option value="Biking">Biking</option>

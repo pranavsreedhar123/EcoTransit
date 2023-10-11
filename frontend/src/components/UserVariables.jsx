@@ -69,8 +69,8 @@ const UserVariables = (props) => {
   const navigate = useNavigate();
   const routeChange = () => {
     let path = `/results`;
-    navigate(path);
-  };
+    navigate(path, { state: data });
+  };  
 
   return (
     <>
@@ -96,7 +96,6 @@ const UserVariables = (props) => {
             <FormControl>
               <Select onChange={handleTransportationChange}>
                 <option value="Public Transit">Public Transit</option>
-                <option value="Flying">Flying</option>
                 <option value="Driving">Driving</option>
                 <option value="Walking">Walking</option>
                 <option value="Biking">Biking</option>
