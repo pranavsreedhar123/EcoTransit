@@ -1,9 +1,10 @@
-name: Push to Main Deploy Workflow
+name: Deploy to GCP
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: "Build React Project"
+    types:
+      - completed
 
 jobs:
   deploy:
@@ -22,6 +23,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
+      
+      - name: Test
+        run: |
+              ls && ls/build-artifacts
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -33,6 +38,4 @@ jobs:
         with:
          version: '>= 363.0.0'
         
-      - name: Test
-        run: |
-           ls && ls/build-artifacts
+      

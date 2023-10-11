@@ -1,9 +1,9 @@
-name: Deploy to Google App Engine
+name: Build React Project
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - frontend-deploy
     paths:
       - frontend/**
 

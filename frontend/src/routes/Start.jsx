@@ -29,6 +29,7 @@ const Start = () => {
   const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
     if (isLoggedIn) {
       navigate("/route", { replace: true });
     }
