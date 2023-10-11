@@ -13,7 +13,7 @@ import App from "routes/App";
 import Map from "components/Map";
 import RouteValues from "components/RouteValues";
 import UserVariables from "components/UserVariables";
-import displayEnvironmentalImpact from "components/EnvironmentalImpact";
+import EnvironmentalImpact from "components/EnvironmentalImpact";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   { path: "/map", element: <Map /> },
   { path: "/route-value", element: <RouteValues /> },
   { path: "/user-variables", element: <UserVariables /> },
-  { path: "/environmental-impact", element: <displayEnvironmentalImpact /> },
+  { path: "/environmental-impact", element: <EnvironmentalImpact /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
