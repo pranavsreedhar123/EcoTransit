@@ -47,7 +47,7 @@ jobs:
           name: 'ecotransit_jar'
           path: 'artifacts'
      - name: ls
-       run: ls
+       run: cd artifacts && ls
        
      - id: 'auth'
        uses: 'google-github-actions/auth@v1'
