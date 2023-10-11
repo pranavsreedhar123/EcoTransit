@@ -55,8 +55,8 @@ const EnvironmentalImpact = () => {
         } else if (selectedTransportation == "Bicycling") {
           d = data.distanceC;
         } else if (
-            selectedTransportation == "Public Transit" ||
-            selectedTransportation == "Flying"
+          selectedTransportation == "Public Transit" ||
+          selectedTransportation == "Flying"
         ) {
           d = data.distanceT;
         }
@@ -65,7 +65,7 @@ const EnvironmentalImpact = () => {
         console.log(d);
         console.log(selectedTransportation);
         const response = await fetch(
-            `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`
+          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
         );
         console.log(response);
         if (response.ok) {
@@ -75,7 +75,7 @@ const EnvironmentalImpact = () => {
 
           if (calculatedImpact > 0) {
             setResultMessage(
-                `This is equivalent to planting ${calculatedImpact} trees.`
+              `This is equivalent to planting ${calculatedImpact} trees.`,
             );
           } else {
             setResultMessage("This mode doesn't contribute to planting trees.");
@@ -103,71 +103,71 @@ const EnvironmentalImpact = () => {
   };
 
   return (
-      <>
-        <Navbar />
-        <VStack padding={300}>
-          <Box
+    <>
+      <Navbar />
+      <VStack padding={300}>
+        <Box
+          bg="green.100"
+          minW={530}
+          borderColor={"gray"}
+          borderWidth="2px"
+          borderRadius="lg"
+          padding={2}
+        >
+          <h1>
+            <b>Mode of Transportation: </b>
+          </h1>
+          <FormControl>
+            <Select onChange={handleTransportationChange}>
+              <option value="">Select Transportation</option>
+              <option value="Driving">Driving</option>
+              <option value="Walking">Walking</option>
+              <option value="Bicycling">Bicycling</option>
+              <option value="Public Transit">Public Transit</option>
+              <option value="Flying">Flying</option>
+            </Select>
+          </FormControl>
+
+          <Button
+            onClick={() => calculateImpact(selectedTransportation)}
+            colorScheme="blue"
+            width={510}
+            disabled={!selectedTransportation}
+          >
+            Calculate Environmental Impact
+          </Button>
+        </Box>
+        {resultMessage && (
+          <>
+            <Box
               bg="green.100"
               minW={530}
               borderColor={"gray"}
               borderWidth="2px"
               borderRadius="lg"
               padding={2}
-          >
-            <h1>
-              <b>Mode of Transportation: </b>
-            </h1>
-            <FormControl>
-              <Select onChange={handleTransportationChange}>
-                <option value="">Select Transportation</option>
-                <option value="Driving">Driving</option>
-                <option value="Walking">Walking</option>
-                <option value="Bicycling">Bicycling</option>
-                <option value="Public Transit">Public Transit</option>
-                <option value="Flying">Flying</option>
-              </Select>
-            </FormControl>
-
-            <Button
-                onClick={() => calculateImpact(selectedTransportation)}
-                colorScheme="blue"
-                width={510}
-                disabled={!selectedTransportation}
             >
-              Calculate Environmental Impact
-            </Button>
-          </Box>
-          {resultMessage && (
-              <>
-                <Box
-                    bg="green.100"
-                    minW={530}
-                    borderColor={"gray"}
-                    borderWidth="2px"
-                    borderRadius="lg"
-                    padding={2}
-                >
-                  <Text align="center">
-                    <b>Distance: {distance} mi</b>
-                  </Text>
-                </Box>
+              <Text align="center">
+                <b>Distance: {distance} mi</b>
+              </Text>
+            </Box>
 
-                <Box
-                    bg="green.100"
-                    minW={530}
-                    borderColor={"gray"}
-                    borderWidth="2px"
-                    borderRadius="lg"
-                    padding={2}
-                >
-                  <Text align="center">
-                    <b>{resultMessage}</b>
-                  </Text>
-                </Box>
-              </>
-          )}
-        </VStack>
-      </>
+            <Box
+              bg="green.100"
+              minW={530}
+              borderColor={"gray"}
+              borderWidth="2px"
+              borderRadius="lg"
+              padding={2}
+            >
+              <Text align="center">
+                <b>{resultMessage}</b>
+              </Text>
+            </Box>
+          </>
+        )}
+      </VStack>
+    </>
   );
 };
 
