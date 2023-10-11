@@ -2,6 +2,8 @@ package com.sustainable_commute_finder.sustainable_commute_finder;
 
 import org.junit.jupiter.api.Test;
 
+import com.sustainable_commute_finder.sustainable_commute_finder.requests.EnvironmentalImpactRequest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnvironmentalImpactRequestTest {

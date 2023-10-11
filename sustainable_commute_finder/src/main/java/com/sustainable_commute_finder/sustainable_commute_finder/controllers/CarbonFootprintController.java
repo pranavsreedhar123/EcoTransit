@@ -1,4 +1,4 @@
-package com.sustainable_commute_finder.sustainable_commute_finder;
+package com.sustainable_commute_finder.sustainable_commute_finder.controllers;
 
 import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintTransitRequestBody;
 import com.sustainable_commute_finder.sustainable_commute_finder.carbon_footprint.CarbonFootprintVehicleRequestBody;
