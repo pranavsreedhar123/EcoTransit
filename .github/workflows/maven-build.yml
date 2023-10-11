@@ -1,5 +1,5 @@
 
-name: Maven Package and Google Cloud Deploy
+name: Maven Build and Package
 
 on:
   pull_request:
