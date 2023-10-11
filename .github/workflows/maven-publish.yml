@@ -32,8 +32,8 @@ jobs:
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with:
-          name: ecotransit_jar
-          path: ./sustainable_commute_finder/target/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
+          name: 'ecotransit_jar'
+          path: './sustainable_commute_finder/target/sustainable_commute_finder-0.0.1-SNAPSHOT.jar'
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -44,8 +44,10 @@ jobs:
      - name: Download artifact
        uses: actions/download-artifact@v2
        with:
-          name: ecotransit_jar
-          path: artifacts
+          name: 'ecotransit_jar'
+          path: 'artifacts'
+     - name: ls
+       run: ls
        
      - id: 'auth'
        uses: 'google-github-actions/auth@v1'
@@ -59,5 +61,5 @@ jobs:
         
      - name: 'Deploy Application'
        run: |
-         gcloud config set project ecotransit-401621
+         ls
          gcloud app deploy artifacts/ecotransit_jar
