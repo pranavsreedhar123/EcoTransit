@@ -10,6 +10,11 @@ public class Elements {
     private Duration duration;
 
     public Distance getDistance() {
+        if (distance == null) {
+            Distance d = new Distance();
+            d.setDistance("N/A");
+            return d;
+        }
         return distance;
     }
 
@@ -18,6 +23,11 @@ public class Elements {
     }
 
     public Duration getDuration() {
+        if (duration == null) {
+            Duration d = new Duration();
+            d.setTime("N/A");
+            return d;
+        }
         return duration;
     }
 
