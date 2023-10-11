@@ -46,9 +46,7 @@ jobs:
        with:
           name: 'ecotransit_jar'
           path: 'artifacts'
-     - name: ls
-       run: cd artifacts && ls
-       
+    
      - id: 'auth'
        uses: 'google-github-actions/auth@v1'
        with:
@@ -61,5 +59,4 @@ jobs:
         
      - name: 'Deploy Application'
        run: |
-         ls
-         gcloud app deploy artifacts/ecotransit_jar
+         gcloud app deploy artifacts/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
