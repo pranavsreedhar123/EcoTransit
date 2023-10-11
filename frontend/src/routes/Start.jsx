@@ -30,6 +30,7 @@ const Start = () => {
 
   useEffect(() => {
     console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+    console.log(process.env.PORT);
     if (isLoggedIn) {
       navigate("/route", { replace: true });
     }
