@@ -2,42 +2,34 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, FormControl, Select } from "@chakra-ui/react";
+import Axios from "axios";
 
 const EnvironmentalImpact = () => {
     const [selectedTransportation, setSelectedTransportation] = useState("");
-    const [impact, setImpact] = useState(0); // Initialize impact with 0
+    const [distance, setDistance] = useState(0);
+    const [impact, setImpact] = useState(0);
 
     const handleTransportationChange = (event) => {
         setSelectedTransportation(event.target.value);
     };
 
     const calculateImpact = (distance, selectedTransportation) => {
-        switch (selectedTransportation) {
-            case "Walking":
-                return 0.2 * distance; // Assuming 0.2 trees planted per mile walked
-            case "Biking":
-                return 0.1 * distance; // Assuming 0.1 trees planted per mile cycled
-            case "Driving":
-                return 0; // No trees planted for driving
-            case "Public Transit":
-                return 0.05 * distance; // Assuming 0.05 trees planted per mile using public transit
-            case "Flying":
-                return 0.05 * distance; // Assuming 0.05 trees planted per mile of flying
-            default:
-                return 0; // Default to no impact
-        }
-    };
-
-    const displayEnvironmentalImpact = () => {
         if (selectedTransportation) {
-            const calculatedImpact = calculateImpact(10, selectedTransportation); // Replace 10 with the actual distance
-            setImpact(calculatedImpact); // Update the impact state
+            Axios.get(`http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`)
+                .then((response) => {
+                    const calculatedImpact = response.data.positiveImpact;
+                    setImpact(calculatedImpact); // Update the impact state
 
-            if (calculatedImpact > 0) {
-                toast.info(`This is equivalent to planting ${calculatedImpact} trees.`);
-            } else {
-                toast.info("This mode doesn't contribute to planting trees.");
-            }
+                    if (calculatedImpact > 0) {
+                        toast.info(`This is equivalent to planting ${calculatedImpact} trees.`);
+                    } else {
+                        toast.info("This mode doesn't contribute to planting trees.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    toast.error("An error occurred while fetching data from the server.");
+                });
         } else {
             toast.error("Please select a transportation method.");
         }
@@ -66,7 +58,7 @@ const EnvironmentalImpact = () => {
                 </Select>
             </FormControl>
             <Button
-                onClick={displayEnvironmentalImpact}
+                onClick={() => calculateImpact(distance, selectedTransportation)}
                 colorScheme="blue"
                 width={450}
                 disabled={!selectedTransportation}
