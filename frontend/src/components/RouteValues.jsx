@@ -39,7 +39,7 @@ const RouteValues = (props) => {
   const navigate = useNavigate();
   const routeChange = () => {
     let path = `/user-variables`;
-    navigate(path);
+    navigate(path, { state: data });
   };
 
   return (
@@ -124,7 +124,7 @@ const RouteValues = (props) => {
             padding={2}
           >
             <h2>
-              <b>Transit</b> (If Available, else uses Default)<b>: </b>
+              <b>Transit: </b>
             </h2>
             <li>Distance: {data.distanceT}</li>
             <li>Duration: {data.durationT}</li>
