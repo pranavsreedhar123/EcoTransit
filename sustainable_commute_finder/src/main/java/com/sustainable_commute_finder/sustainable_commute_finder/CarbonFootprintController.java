@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-
 @RestController
 public class CarbonFootprintController {
     RestTemplate restTemplate;
