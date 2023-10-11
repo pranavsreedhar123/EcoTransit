@@ -54,7 +54,7 @@ jobs:
           run: |
             ls
             echo "env_variables:" >> deploy/app.yaml
-            echo "  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}" >> deploy/app.yaml
+            echo "  REACT_APP_GOOGLE_MAPS_API_KEY: AIzaSyDD6XZcpMCY2lNFNUxe_iOS4JypkcvxMrY" >> deploy/app.yaml
   
         - id: 'auth'
           uses: 'google-github-actions/auth@v1'
