@@ -23,7 +23,7 @@ jobs:
       run: |
           echo "GOOGLE_MAPS_KEY=${{ secrets.GOOGLE_MAPS_KEY }}" > .env.properties
           echo "CARBON_INTERFACE_KEY=${{ secrets.CARBON_INTERFACE_KEY }}" >> .env.properties
-      working-directory: ./sustainable_commute_finder/
+      working-directory: ./sustainable_commute_finder/src/main/resources/
       
     - name: Maven Package
       run: mvn clean package
