@@ -34,9 +34,3 @@ jobs:
       - name: Build
         run: CI=false npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifacts
-          path: frontend/deploy
-
