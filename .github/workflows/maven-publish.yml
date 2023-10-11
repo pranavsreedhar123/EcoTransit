@@ -1,0 +1,62 @@
+name: Maven Package and Google Cloud Deploy
+
+on:
+  push:
+    branches:
+      - backend-cicd  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Add Environment Variables
+      run: |
+          echo "GOOGLE_MAPS_KEY=${{ secrets.GOOGLE_MAPS_KEY }}" > .env.properties
+          echo "CARBON_INTERFACE_KEY=${{ secrets.CARBON_INTERFACE_KEY }}" >> .env.properties
+      working-directory: ./sustainable_commute_finder/
+      
+    - name: Maven Package
+      run: mvn clean package
+      working-directory: ./sustainable_commute_finder/
+      
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: 'ecotransit_jar'
+          path: './sustainable_commute_finder/target/sustainable_commute_finder-0.0.1-SNAPSHOT.jar'
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v2
+       
+     - name: Download artifact
+       uses: actions/download-artifact@v2
+       with:
+          name: 'ecotransit_jar'
+          path: 'artifacts'
+    
+     - id: 'auth'
+       uses: 'google-github-actions/auth@v1'
+       with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+     - name: 'Set up Cloud SDK'
+       uses: 'google-github-actions/setup-gcloud@v1'
+       with:
+        version: '>= 363.0.0'
+        
+     - name: 'Deploy Application'
+       run: |
+         gcloud app deploy artifacts/sustainable_commute_finder-0.0.1-SNAPSHOT.jar
