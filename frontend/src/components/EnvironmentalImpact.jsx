@@ -105,7 +105,7 @@ const EnvironmentalImpact = () => {
   return (
     <>
       <Navbar />
-      <VStack padding={300}>
+      <VStack padding={200}>
         <Box
           bg="green.100"
           minW={530}
