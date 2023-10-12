@@ -41,7 +41,7 @@ const Results = (props) => {
     useState("Public Transit");
   const [otherPassengers, setOtherPassengers] = useState(1);
   const [otherCarID, setOtherCarID] = useState(
-    "d528d2ca-c578-4542-a393-6d5fc525f849"
+    "d528d2ca-c578-4542-a393-6d5fc525f849",
   );
   const [otherCarbonG, setOtherCarbonG] = useState(0);
   const [impactCheck, setImpactCheck] = useState(false);
@@ -106,7 +106,7 @@ const Results = (props) => {
           });
         console.log(JSON.parse(res).data.attributes.carbon_g);
         setOtherCarbonG(
-          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers,
         );
       } else {
         toast({
@@ -155,7 +155,7 @@ const Results = (props) => {
           });
         console.log(JSON.parse(res).data.attributes.carbon_g);
         setOtherCarbonG(
-          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers,
         );
       } else {
         toast({
@@ -199,7 +199,7 @@ const Results = (props) => {
     try {
       let difference = otherCarbonG - data.carbonG;
       var response = await fetch(
-        `http://localhost:8080/environmental-impact/${difference}`
+        `http://localhost:8080/environmental-impact/${difference}`,
       );
       // console.log(difference);
       if (response.ok) {
@@ -209,12 +209,12 @@ const Results = (props) => {
         if (calculatedImpact < 0) {
           setResultMessage(
             `The alternative mode of transport is equivalent to planting ${Math.abs(
-              calculatedImpact
-            )} trees!`
+              calculatedImpact,
+            )} trees!`,
           );
         } else {
           setResultMessage(
-            "This alternative mode doesn't contribute to planting trees!"
+            "This alternative mode doesn't contribute to planting trees!",
           );
         }
         console.log(resultMessage);
