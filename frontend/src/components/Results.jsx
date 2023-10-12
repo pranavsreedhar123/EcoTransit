@@ -59,7 +59,7 @@ const Results = (props) => {
         destination: getPoint(data.destinationlat, data.destinationlng),
         ...data,
       });
-      console.log(data.selectedMode);
+      console.log(data.carID);
       // await getCarbonFootprint(data.transportationMode);
     };
 
@@ -77,7 +77,7 @@ const Results = (props) => {
           type: "vehicle",
           distance_unit: "mi",
           distance_value: parseFloat(data.distanceD.replace(/[^\d.-]/g, "")),
-          vehicle_model_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
+          vehicle_model_id: "d528d2ca-c578-4542-a393-6d5fc525f849",
         });
         const url = "http://localhost:8080/carbonFootprintVehicle";
         var res = "";
@@ -102,7 +102,7 @@ const Results = (props) => {
               isClosable: true,
             });
           });
-        console.log(JSON.parse(res).data.attributes.carbon_g);
+        console.log(JSON.parse(res).data.attributes.carbon_kg);
         setOtherCarbonG(
           JSON.parse(res).data.attributes.carbon_kg / otherPassengers
         );
@@ -151,7 +151,7 @@ const Results = (props) => {
               isClosable: true,
             });
           });
-        console.log(JSON.parse(res).data.attributes.carbon_g);
+        console.log(JSON.parse(res).data.attributes.carbon_kg);
         setOtherCarbonG(
           JSON.parse(res).data.attributes.carbon_kg / otherPassengers
         );
@@ -180,6 +180,7 @@ const Results = (props) => {
   const handleCarIdChange = (e) => {
     const selectedCarId = e.target.value;
     setOtherCarID(selectedCarId);
+    console.log(selectedCarId);
   };
 
   const handlePassengerChange = (e) => {
@@ -292,11 +293,11 @@ const Results = (props) => {
                   Select an alternative vehicle Specification:{" "}
                 </FormLabel>
                 <Select onChange={handleCarIdChange}>
-                  <option value="Car 1">Car 1</option>
-                  <option value="Car 2">Car 2</option>
-                  <option value="Car 3">Car 3</option>
-                  <option value="Car 4">Car 4</option>
-                  <option value="Car 5">Car 5</option>
+                  <option value="d528d2ca-c578-4542-a393-6d5fc525f849">Toyota Corolla</option>
+                  <option value="87500196-dc49-44f9-8f2d-6fab127e3ead">Jeep Wrangler</option>
+                  <option value="2bcdabf0-c33d-4970-9701-d1a983d41678">Ford Fusion Hybrid FWD</option>
+                  <option value="a1ebdf57-1c17-4982-9417-9b632a6dde2c">BMW X6</option>
+                  <option value="d68b0cb4-29ee-4d84-a6fc-c894c9347a3d">Tesla Model 3 Long Range</option>
                 </Select>
               </FormControl>
             )}

@@ -23,7 +23,7 @@ public class CarbonFootprintController {
     @PostMapping(value = "/carbonFootprintVehicle",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
+    @ResponseBody
     public CarbonFootprintResponseData getCarbonFootprint(@RequestBody CarbonFootprintVehicleRequestBody vehicleRequestBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + API_KEY);

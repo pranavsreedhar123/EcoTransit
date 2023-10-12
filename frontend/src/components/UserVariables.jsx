@@ -18,7 +18,7 @@ const UserVariables = (props) => {
   const toast = useToast();
   const location = useLocation();
   const [selectedMode, setSelectMode] = useState("Driving");
-  const [carID, setCarID] = useState("1");
+  const [carID, setCarID] = useState("d528d2ca-c578-4542-a393-6d5fc525f849");
   const [passenger, setPassengers] = useState(1);
   const [data, setData] = useState({
     origin: { lat: null, lng: null },
@@ -79,7 +79,7 @@ const UserVariables = (props) => {
           type: "vehicle",
           distance_unit: "mi",
           distance_value: parseFloat(data.distanceD.replace(/[^\d.-]/g, "")),
-          vehicle_model_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
+          vehicle_model_id: data.carID,
         });
         const url = "http://localhost:8080/carbonFootprintVehicle";
         var res = "";
@@ -104,7 +104,7 @@ const UserVariables = (props) => {
               isClosable: true,
             });
           });
-        console.log(JSON.parse(res).data.attributes.carbon_g);
+        console.log(JSON.parse(res).data.attributes.carbon_kg);
         carbonG = JSON.parse(res).data.attributes.carbon_kg / passenger;
       } else {
         toast({
@@ -151,7 +151,7 @@ const UserVariables = (props) => {
               isClosable: true,
             });
           });
-        console.log(JSON.parse(res).data.attributes.carbon_g);
+        console.log(JSON.parse(res).data.attributes.carbon_kg);
         carbonG = JSON.parse(res).data.attributes.carbon_kg / passenger;
       } else {
         toast({
