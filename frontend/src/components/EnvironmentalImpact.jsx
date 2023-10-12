@@ -65,7 +65,7 @@ const EnvironmentalImpact = () => {
         console.log(d);
         console.log(selectedTransportation);
         const response = await fetch(
-          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
+          `${process.env.REACT_APP_BACKEND_URL}/environmental-impact/${distance}/${selectedTransportation}`,
         );
         console.log(response);
         if (response.ok) {
