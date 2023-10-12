@@ -104,7 +104,7 @@ const Results = (props) => {
           });
         console.log(JSON.parse(res).data.attributes.carbon_kg);
         setOtherCarbonG(
-          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers,
         );
       } else {
         toast({
@@ -153,7 +153,7 @@ const Results = (props) => {
           });
         console.log(JSON.parse(res).data.attributes.carbon_kg);
         setOtherCarbonG(
-          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers,
         );
       } else {
         toast({
@@ -192,7 +192,7 @@ const Results = (props) => {
     try {
       let difference = otherCarbonG - data.carbonG;
       var response = await fetch(
-        `http://localhost:8080/environmental-impact/${difference}`
+        `http://localhost:8080/environmental-impact/${difference}`,
       );
       // console.log(difference);
       if (response.ok) {
@@ -202,12 +202,12 @@ const Results = (props) => {
         if (calculatedImpact < 0) {
           setResultMessage(
             `The alternative mode of transport is equivalent to planting ${Math.abs(
-              calculatedImpact
-            )} trees!`
+              calculatedImpact,
+            )} trees!`,
           );
         } else {
           setResultMessage(
-            "This alternative mode doesn't contribute to planting trees!"
+            "This alternative mode doesn't contribute to planting trees!",
           );
         }
         console.log(resultMessage);
@@ -293,11 +293,21 @@ const Results = (props) => {
                   Select an alternative vehicle Specification:{" "}
                 </FormLabel>
                 <Select onChange={handleCarIdChange}>
-                  <option value="d528d2ca-c578-4542-a393-6d5fc525f849">Toyota Corolla</option>
-                  <option value="87500196-dc49-44f9-8f2d-6fab127e3ead">Jeep Wrangler</option>
-                  <option value="2bcdabf0-c33d-4970-9701-d1a983d41678">Ford Fusion Hybrid FWD</option>
-                  <option value="a1ebdf57-1c17-4982-9417-9b632a6dde2c">BMW X6</option>
-                  <option value="d68b0cb4-29ee-4d84-a6fc-c894c9347a3d">Tesla Model 3 Long Range</option>
+                  <option value="d528d2ca-c578-4542-a393-6d5fc525f849">
+                    Toyota Corolla
+                  </option>
+                  <option value="87500196-dc49-44f9-8f2d-6fab127e3ead">
+                    Jeep Wrangler
+                  </option>
+                  <option value="2bcdabf0-c33d-4970-9701-d1a983d41678">
+                    Ford Fusion Hybrid FWD
+                  </option>
+                  <option value="a1ebdf57-1c17-4982-9417-9b632a6dde2c">
+                    BMW X6
+                  </option>
+                  <option value="d68b0cb4-29ee-4d84-a6fc-c894c9347a3d">
+                    Tesla Model 3 Long Range
+                  </option>
                 </Select>
               </FormControl>
             )}
