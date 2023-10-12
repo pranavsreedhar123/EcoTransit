@@ -199,7 +199,7 @@ const Results = (props) => {
     try {
       let difference = otherCarbonG - data.carbonG;
       var response = await fetch(
-        `http://localhost:8080/environmental-impact/${difference}`,
+        `${process.env.REACT_APP_BACKEND_URL}/environmental-impact/${difference}`,
       );
       // console.log(difference);
       if (response.ok) {
