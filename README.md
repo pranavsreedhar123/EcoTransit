@@ -59,7 +59,7 @@ npm start
 1. Go to the sustainable_commute_finder folder
 
 ```bash
-cd sustatinable_commute_finder
+cd sustainable_commute_finder
 ```
 
 2. Run the spring boot
