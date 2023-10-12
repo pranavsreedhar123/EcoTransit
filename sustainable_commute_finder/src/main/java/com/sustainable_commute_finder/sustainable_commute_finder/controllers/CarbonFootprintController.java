@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 public class CarbonFootprintController {
     RestTemplate restTemplate;
 
     @Value("${CARBON_INTERFACE_API_KEY}")
     private String API_KEY;
 
-    @RequestMapping(value = "/carbonFootprintVehicle",
-            method = RequestMethod.POST,
+
+    @PostMapping(value = "/carbonFootprintVehicle",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
+//    @ResponseBody
     public CarbonFootprintResponseData getCarbonFootprint(@RequestBody CarbonFootprintVehicleRequestBody vehicleRequestBody) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + API_KEY);
