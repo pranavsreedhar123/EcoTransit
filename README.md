@@ -28,7 +28,7 @@ cd sustainable-commute-finder
 
 3. Build the project using Maven:
 ```bash
-mvn clena install
+mvn clean install
 ```
 
 4. Run the application:
@@ -38,6 +38,7 @@ java -jar target/sustainable-commute-finder-0.0.1-SNAPSHOT.jar
 
 ### Usage
 - Access the web app through your browser at http://localhost:8080.
+- Keep in mind! This is only for Backend!
 
 ### Features
 - User registration and authentication
