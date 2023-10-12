@@ -16,7 +16,7 @@ const EnvironmentalImpact = () => {
   const location = useLocation();
   const [selectedTransportation, setSelectedTransportation] = useState("");
   const [distance, setDistance] = useState(0);
-  const [impact, setImpact] = useState(0);
+
   const [resultMessage, setResultMessage] = useState("");
   const toast = useToast();
   const [data, setData] = useState({
@@ -36,69 +36,6 @@ const EnvironmentalImpact = () => {
 
   const handleTransportationChange = (event) => {
     setSelectedTransportation(event.target.value);
-  };
-
-  const calculateImpact = async () => {
-    if (selectedTransportation != null) {
-      try {
-        const data = location.state;
-        setData({
-          origin: getPoint(data.originlat, data.originlng),
-          destination: getPoint(data.destinationlat, data.destinationlng),
-          ...data,
-        });
-        var distance = "0";
-        if (selectedTransportation == "Driving") {
-          distance = data.distanceD;
-        } else if (selectedTransportation == "Walking") {
-          distance = data.distanceW;
-        } else if (selectedTransportation == "Bicycling") {
-          distance = data.distanceC;
-        } else if (
-          selectedTransportation == "Public Transit" ||
-          selectedTransportation == "Flying"
-        ) {
-          distance = data.distanceT;
-        }
-        distance = parseFloat(distance.replace(/[^\d.-]/g, ""));
-        console.log(distance);
-        console.log(selectedTransportation);
-        const response = await fetch(
-          `http://localhost:8080/environmental-impact/${distance}/${selectedTransportation}`,
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          const calculatedImpact = data.positiveImpact;
-          setImpact(calculatedImpact);
-
-          if (calculatedImpact > 0) {
-            setResultMessage(
-              `This is equivalent to planting ${calculatedImpact} trees.`,
-            );
-          } else {
-            setResultMessage("This mode doesn't contribute to planting trees.");
-          }
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        toast({
-          title: "Error!",
-          description: "An error occurred while fetching data from the server.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
-    } else {
-      toast({
-        title: "Error!",
-        description: "Please select a mode of transportation!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
   };
 
   return (

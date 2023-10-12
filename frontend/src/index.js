@@ -14,6 +14,7 @@ import Map from "components/Map";
 import RouteValues from "components/RouteValues";
 import UserVariables from "components/UserVariables";
 import Results from "components/Results";
+import EnvironmentalImpact from "components/EnvironmentalImpact";
 
 const router = createBrowserRouter([
   { path: "/", element: <Start /> },
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
   { path: "/map", element: <Map /> },
   { path: "/route-value", element: <RouteValues /> },
   { path: "/user-variables", element: <UserVariables /> },
+  { path: "/environmental-impact", element: <EnvironmentalImpact /> },
   { path: "/results", element: <Results /> },
 ]);
 
@@ -41,7 +43,7 @@ root.render(
         </ChakraProvider>
       </PersistGate>
     </ReduxProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

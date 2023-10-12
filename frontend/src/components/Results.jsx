@@ -12,9 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import axios from 'axios';
+import { useToast } from "@chakra-ui/react";
 
+const getPoint = (lat, lng) => ({ lat: parseFloat(lat), lng: parseFloat(lng) });
 const Results = (props) => {
+  const toast = useToast();
   const location = useLocation();
 
   const [data, setData] = useState({
@@ -26,92 +28,202 @@ const Results = (props) => {
     durationW: "",
     distanceT: "",
     durationT: "",
-    transportationMode: "",
-    carId: "",
-    passengers: 1,
-    otherTransportationMode: "",
-    otherCarId: "",
-    otherPassengers: 1,
+    distanceC: "",
+    durationC: "",
+    valueS: "",
+    valueE: "",
+    selectedMode: "",
+    carID: "",
+    passenger: 1,
+    carbonG: 0,
   });
-
+  const [otherTransportationMode, setOtherTransportationMode] =
+    useState("Public Transit");
+  const [otherPassengers, setOtherPassengers] = useState(1);
+  const [otherCarID, setOtherCarID] = useState("");
+  const [otherCarbonG, setOtherCarbonG] = useState(0);
+  const [impactCheck, setImpactCheck] = useState(false);
+  const [impactCheckBox, setImpactCheckBox] = useState(false);
   const [isSecondBoxVisible, setIsSecondBoxVisible] = useState(true);
   const [isThirdBoxVisible, setIsThirdBoxVisible] = useState(false);
-  const [isComparisonResultVisible, setIsComparisonResultVisible] = useState(false);
-
-  const getCarbonFootprint = () => {
-    if (data.transportationMode === "Walking" || data.transportationMode === "Biking") {
-      return 0;
-    } else if (data.transportationMode === "Driving") {
-      const requestBody = {
-        type: "vehicle",
-        distance_unit: "km",
-        distance_value: data.distanceD,
-        car_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
-      }
-      const url = "http://localhost:8080/carbonFootprintVehicle"
-      axios.post(url, requestBody)
-      .then(response => {
-        console.log(response.status);
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-      });
-    }
-  };
+  const [resultMessage, setResultMessage] = useState("");
+  const [isComparisonResultVisible, setIsComparisonResultVisible] =
+    useState(false);
 
   useEffect(() => {
     const getLocation = async () => {
-      const dataFromLocation = location.state;
-      if (dataFromLocation) {
-        setData({
-          ...data,
-          ...dataFromLocation
-        });
-      } else {
-        console.warn('No location state provided');
-      }
+      const data = location.state;
+      // console.log(data);
+      setData({
+        origin: getPoint(data.originlat, data.originlng),
+        destination: getPoint(data.destinationlat, data.destinationlng),
+        ...data,
+      });
+      console.log(data.selectedMode);
+      // await getCarbonFootprint(data.transportationMode);
     };
-  
+
     getLocation();
   }, [location]);
-  
 
-  const navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/route`;
-    navigate(path);
+  const getCarbonFootprint = async (mode) => {
+    if (mode === "Walking" || mode === "Biking") {
+      setOtherCarbonG(0);
+    } else if (mode === "Driving") {
+      if (data.distanceD != "N/A") {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestBody = JSON.stringify({
+          type: "vehicle",
+          distance_unit: "mi",
+          distance_value: parseFloat(data.distanceD.replace(/[^\d.-]/g, "")),
+          vehicle_model_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
+        });
+        const url = "http://localhost:8080/carbonFootprintVehicle";
+        var res = "";
+        await fetch(url, {
+          method: "POST",
+          body: requestBody,
+          headers: myHeaders,
+        })
+          .then((response) => response.text())
+          .then((result) => {
+            console.log(result);
+            res = result;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            toast({
+              title: "Error!",
+              description:
+                "An error occurred while fetching data from the server.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+        console.log(JSON.parse(res).data.attributes.carbon_g);
+        setOtherCarbonG(
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+        );
+      } else {
+        toast({
+          title: "Error!",
+          description:
+            "There was no route found for this mode of transport! Choose another mode.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } else if (mode === "Public Transit") {
+      if (data.distanceT != "N/A") {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestBody = JSON.stringify({
+          type: "shipping",
+          distance_unit: "mi",
+          distance_value: parseFloat(data.distanceT.replace(/[^\d.-]/g, "")),
+          transport_method: "train",
+          weight_unit: "kg",
+          weight_value: 90000,
+        });
+        const url = "http://localhost:8080/carbonFootprintTransit";
+        var res = "";
+        await fetch(url, {
+          method: "POST",
+          body: requestBody,
+          headers: myHeaders,
+        })
+          .then((response) => response.text())
+          .then((result) => {
+            console.log(result);
+            res = result;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            toast({
+              title: "Error!",
+              description:
+                "An error occurred while fetching data from the server.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+        console.log(JSON.parse(res).data.attributes.carbon_g);
+        setOtherCarbonG(
+          JSON.parse(res).data.attributes.carbon_kg / otherPassengers
+        );
+      } else {
+        toast({
+          title: "Error!",
+          description:
+            "There was no route found for this mode of transport! Choose another mode.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    }
+    setIsComparisonResultVisible(true);
+    setImpactCheck(false);
+    setImpactCheckBox(true);
+    console.log(isComparisonResultVisible);
   };
 
   const handleTransportationChange = (e) => {
     const selectedMode = e.target.value;
-    getCarbonFootprint();
-    setData((prevData) => ({
-      ...prevData,
-      otherTransportationMode: selectedMode,
-    }));
-    setIsThirdBoxVisible(selectedMode === "Driving");
-    setIsSecondBoxVisible(
-      selectedMode !== "Walking" && selectedMode !== "Biking",
-    );
+    setOtherTransportationMode(selectedMode);
   };
 
   const handleCarIdChange = (e) => {
     const selectedCarId = e.target.value;
-    setData((prevData) => ({
-      ...prevData,
-      otherCarId: selectedCarId,
-    }));
+    setOtherCarID(selectedCarId);
   };
 
   const handlePassengerChange = (e) => {
-    setData((prevData) => ({
-      ...prevData,
-      otherPassengers: e,
-    }));
+    const passenger = e.target.value;
+    setOtherPassengers(passenger);
   };
 
-  const showComparisonResult = () => {
-    setIsComparisonResultVisible(true);
+  const calculateImpact = async () => {
+    try {
+      let difference = otherCarbonG - data.carbonG;
+      var response = await fetch(
+        `http://localhost:8080/environmental-impact/${difference}`
+      );
+      // console.log(difference);
+      if (response.ok) {
+        response = await response.json();
+        const calculatedImpact = response.positiveImpact;
+        console.log(calculatedImpact);
+        if (calculatedImpact < 0) {
+          setResultMessage(
+            `The alternative mode of transport is equivalent to planting ${Math.abs(
+              calculatedImpact
+            )} trees!`
+          );
+        } else {
+          setResultMessage(
+            "This alternative mode doesn't contribute to planting trees!"
+          );
+        }
+        console.log(resultMessage);
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      setImpactCheck(true);
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error!",
+        description: "An error occurred while fetching data from the server.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -120,25 +232,26 @@ const Results = (props) => {
       <Center>
         <VStack
           spacing={1}
-          paddingTop={100}
+          paddingTop={50}
           alignItems={"flex-start"}
           fontSize={25}
         >
           <Box
             bg="green.100"
-            minW={450}
+            minW={600}
             borderColor={"gray"}
             borderWidth="2px"
             borderRadius="lg"
             padding={6}
           >
             <h1>
-              <b>Carbon Footprint:</b> 10 g
+              <b>Current Carbon Footprint/passenger:</b> {data.carbonG} kg
             </h1>
           </Box>
+
           <Box
             bg="green.100"
-            minW={450}
+            minW={600}
             borderColor={"gray"}
             borderWidth="2px"
             borderRadius="lg"
@@ -167,9 +280,7 @@ const Results = (props) => {
                   min={1}
                   max={1000}
                   defaultValue={1}
-                  onChange={(valueString, valueNumber) =>
-                    handlePassengerChange(valueNumber)
-                  }
+                  onChange={(valueNumber) => handlePassengerChange(valueNumber)}
                 >
                   <NumberInputField />
                 </NumberInput>
@@ -190,7 +301,7 @@ const Results = (props) => {
               </FormControl>
             )}
             <Button
-              onClick={showComparisonResult}
+              onClick={() => getCarbonFootprint(otherTransportationMode)}
               colorScheme="blue"
               width={450}
             >
@@ -198,26 +309,36 @@ const Results = (props) => {
             </Button>
             {isComparisonResultVisible && (
               <h3>
-                <b>Alternate Carbon Footprint: </b> 15 g
+                <b>Alternate Carbon Footprint/passenger: </b> {otherCarbonG} kg
               </h3>
             )}
           </Box>
-          <Box
-            bg="green.100"
-            minW={450}
-            borderColor={"gray"}
-            borderWidth="2px"
-            borderRadius="lg"
-            padding={6}
-          >
-            <h1>
-              <b>Environmental Impact Stuff Goes Here!</b>
-            </h1>
-          </Box>
+          {impactCheckBox && (
+            <>
+              <Box
+                bg="green.100"
+                width={600}
+                borderColor={"gray"}
+                borderWidth="2px"
+                borderRadius="lg"
+                padding={6}
+              >
+                {!impactCheck && (
+                  <Button
+                    onClick={() => calculateImpact()}
+                    colorScheme="blue"
+                    width={450}
+                  >
+                    See Environmental Impact
+                  </Button>
+                )}
+                {impactCheck && <h4>{resultMessage}</h4>}
+              </Box>
+            </>
+          )}
         </VStack>
       </Center>
     </>
   );
 };
-
 export default Results;

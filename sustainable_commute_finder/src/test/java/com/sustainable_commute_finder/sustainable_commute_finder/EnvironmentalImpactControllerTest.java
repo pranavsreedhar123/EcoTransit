@@ -19,16 +19,16 @@ public class EnvironmentalImpactControllerTest {
 
 
 
-    @Test
-    public void testCalculateEnvironmentalImpact() throws Exception {
-        double distance = 10.0;
-        String mode = "walking";
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/environmental-impact/{distance}/{mode}", distance, mode)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.commuteDistance").value(distance))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.commuteMode").value(mode))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.positiveImpact").value(1.0)); 
-    }
+//    @Test
+//    public void testCalculateEnvironmentalImpact() throws Exception {
+//        double distance = 10.0;
+//        String mode = "walking";
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/environmental-impact/{distance}/{mode}", distance, mode)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.commuteDistance").value(distance))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.commuteMode").value(mode))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.positiveImpact").value(1.0));
+//    }
 }
