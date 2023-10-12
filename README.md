@@ -34,6 +34,20 @@ cd sustainable-commute-finder
 
 ### Usage
 
+#### Backend:
+
+1. Go to the sustainable_commute_finder folder
+
+```bash
+cd sustatinable_commute_finder
+```
+
+2. Run the spring boot
+
+```bash
+mvn spring-boot:run
+```
+
 #### Frontend:
 
 1. Go to front end folder
@@ -54,21 +68,7 @@ npm install
 npm start
 ```
 
-#### Backend:
-
-1. Go to the sustainable_commute_finder folder
-
-```bash
-cd sustatinable_commute_finder
-```
-
-2. Run the spring boot
-
-```bash
-mvn spring-boot:run
-```
-
-3. Access the web app through your browser at http://localhost:8080.
+4. Access the web app through your browser at http://localhost:3000.
 
 ### Features
 
