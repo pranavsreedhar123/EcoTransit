@@ -37,8 +37,35 @@ java -jar target/sustainable-commute-finder-0.0.1-SNAPSHOT.jar
 ```
 
 ### Usage
-- Access the web app through your browser at http://localhost:8080.
-- Keep in mind! This is only for Backend!
+
+#### Frontend:
+1. Go to front end folder
+```bash
+cd frontend
+```
+
+2. Install the necessary dependencies
+```bash
+npm install
+```
+
+3. Start the startup script for React. It will automatically choose port 3000 and host the application on your local host
+```bash
+npm start
+```
+
+#### Backend:
+1. Go to sustainable_commute_finder folder
+```bash
+cd sustatinable_commute_finder
+```
+2. Run the spring boot
+```bash
+mvn spring-boot:run
+```
+
+3. Access the web app through your browser at http://localhost:8080.
+
 
 ### Features
 - User registration and authentication
