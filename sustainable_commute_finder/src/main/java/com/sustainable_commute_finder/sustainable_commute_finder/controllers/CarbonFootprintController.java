@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins={"http://localhost:3000", "https://ecotransit-frontend.uc.r.appspot.com"})
 public class CarbonFootprintController {
     RestTemplate restTemplate;
 
