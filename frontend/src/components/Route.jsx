@@ -21,19 +21,20 @@ const Route = () => {
     let inputValue = e.target.value;
     setValueE(inputValue);
   };
-  let handleTransportationChange = (e) => {
-    let inputValue = e.target.value;
-    setTransportationMethod(inputValue);
-  };
+  // let handleTransportationChange = (e) => {
+  //   let inputValue = e.target.value;
+  //   setTransportationMethod(inputValue);
+  // };
 
   const toast = useToast();
   const navigate = useNavigate();
   let [loading, setLoading] = useState(false);
   const routeChange = async () => {
+    setTransportationMethod("Test");
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/getLocation/${valueS}/${valueE}`,
+        `${process.env.REACT_APP_BACKEND_URL}/getLocation/${valueS}/${valueE}`,
       );
 
       if (!response.ok) {
