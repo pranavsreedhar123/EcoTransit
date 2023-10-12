@@ -62,8 +62,8 @@ const UserVariables = (props) => {
   };
 
   const handlePassengerChange = (e) => {
-    var p = e.target.value;
-    setPassengers(p);
+    const passengers = e;
+    setPassengers(passengers);
   };
 
   const navigate = useNavigate();

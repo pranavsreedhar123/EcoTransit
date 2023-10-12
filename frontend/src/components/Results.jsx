@@ -183,8 +183,8 @@ const Results = (props) => {
   };
 
   const handlePassengerChange = (e) => {
-    const passenger = e.target.value;
-    setOtherPassengers(passenger);
+    const passengers = e;
+    setOtherPassengers(passengers);
   };
 
   const calculateImpact = async () => {
