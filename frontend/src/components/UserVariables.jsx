@@ -82,7 +82,7 @@ const UserVariables = (props) => {
           distance_value: parseFloat(data.distanceD.replace(/[^\d.-]/g, "")),
           vehicle_model_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
         });
-        const url = "http://localhost:8080/carbonFootprintVehicle";
+        const url = `${process.env.REACT_APP_BACKEND_URL}/carbonFootprintVehicle`;
         var res = "";
         await fetch(url, {
           method: "POST",
@@ -129,7 +129,7 @@ const UserVariables = (props) => {
           weight_unit: "kg",
           weight_value: 90000,
         });
-        const url = "http://localhost:8080/carbonFootprintTransit";
+        const url = `${process.env.REACT_APP_BACKEND_URL}/carbonFootprintTransit`;
         var res = "";
         await fetch(url, {
           method: "POST",

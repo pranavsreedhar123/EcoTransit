@@ -79,7 +79,7 @@ const Results = (props) => {
           distance_value: parseFloat(data.distanceD.replace(/[^\d.-]/g, "")),
           vehicle_model_id: "7268a9b7-17e8-4c8d-acca-57059252afe9",
         });
-        const url = "http://localhost:8080/carbonFootprintVehicle";
+        const url = `${process.env.REACT_APP_BACKEND_URL}/carbonFootprintVehicle`;
         var res = "";
         await fetch(url, {
           method: "POST",
@@ -128,7 +128,7 @@ const Results = (props) => {
           weight_unit: "kg",
           weight_value: 90000,
         });
-        const url = "http://localhost:8080/carbonFootprintTransit";
+        const url = `${process.env.REACT_APP_BACKEND_URL}/carbonFootprintTransit`;
         var res = "";
         await fetch(url, {
           method: "POST",
@@ -191,7 +191,7 @@ const Results = (props) => {
     try {
       let difference = otherCarbonG - data.carbonG;
       var response = await fetch(
-        `http://localhost:8080/environmental-impact/${difference}`,
+        `${process.env.REACT_APP_BACKEND_URL}/environmental-impact/${difference}`,
       );
       // console.log(difference);
       if (response.ok) {
