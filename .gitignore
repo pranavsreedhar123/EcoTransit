@@ -5,3 +5,4 @@ frontend/.env
 sustainable_commute_finder/.gcloudignore
 frontend/deploy/*
 frontend/.gcloudignore
+.vscode/settings.json

@@ -12,7 +12,7 @@ import com.sustainable_commute_finder.sustainable_commute_finder.responses.Respo
 
 @RestController
 
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins={"http://localhost:3000", "https://ecotransit-frontend.uc.r.appspot.com"})
 
 public class MapController {
     @Value("${GOOGLE_MAPS_API_KEY}")

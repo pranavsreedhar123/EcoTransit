@@ -10,7 +10,7 @@ import com.sustainable_commute_finder.sustainable_commute_finder.responses.Envir
 import java.text.DecimalFormat;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins={"http://localhost:3000", "https://ecotransit-frontend.uc.r.appspot.com"})
 public class EnvironmentalImpactController {
 
     @Value("${GOOGLE_MAPS_API_KEY}")
